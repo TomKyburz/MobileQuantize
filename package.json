@@ -1,0 +1,27 @@
+{
+  "dependencies": {
+    "express": "^5.1.0",
+    "git": "^0.1.5",
+    "http": "^0.0.1-security",
+    "mime": "^4.1.0",
+    "path": "^0.12.7",
+    "ws": "^8.18.3"
+  },
+  "name": "quantize",
+  "version": "1.0.0",
+  "description": "Game hub",
+  "main": "index.mjs",
+  "scripts": {
+    "start": "node index.mjs"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/TomKyburz/Quantize.git"
+  },
+  "author": "Tom Kyburz",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/TomKyburz/Quantize/issues"
+  },
+  "homepage": "https://github.com/TomKyburz/Quantize#readme"
+}
