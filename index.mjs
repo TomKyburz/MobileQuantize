@@ -3,9 +3,9 @@ import WebSocket, { WebSocketServer } from 'ws'
 import { createRequire } from 'node:module'
 import fs from 'node:fs'
 import mime from 'mime'
+import webpush from 'web-push'
 
 const require = createRequire(import.meta.url)
-
 const accessTokens = require('access-tokens.json')
 const allowedTokens = Object.entries(accessTokens).reduce(
   (sum, [k, v]) => ({
@@ -18,46 +18,104 @@ const allowedTokens = Object.entries(accessTokens).reduce(
   {}
 )
 
+const VAPID_PUBLIC = 'BAE6g8gLvVBZRQpNSXoleYmEMndyJbnRBDMtMxOT7_vMyNKXfUtRjg69L4TU3q_MYciNnx4GX4S4rLqYaJLL7Qg';
+const VAPID_PRIVATE = 'o_8r1W8pXvOZ7OGUJyK9EeOUsut-NN38UiKYUN0vTP4'
+
+webpush.setVapidDetails(
+  'mailto:you@example.com',
+  VAPID_PUBLIC,
+  VAPID_PRIVATE
+);
+
+let subscriptions = [];
+try {
+  subscriptions = JSON.parse(fs.readFileSync('subscriptions.json', 'utf-8'));
+} catch (e) {
+  console.log('No previous subscriptions found');
+}
+
 const server = new Server()
 
-server.on('request', async function onRequest (req, res) {
-  if (req.url.startsWith('/validate-token')) {
-    const token = req.url.split('/').slice(-1)?.[0]
-    if (token && allowedTokens[token]) {
-      const secure = process.env.IS_OFFLINE ? '' : 'Secure;'
-      res.writeHead(200, {
-        'set-cookie': `token=${token}; Path=/; HttpOnly; SameSite=Strict; ${secure}`
-      })
-    } else {
-      res.writeHead(401)
+server.on('request', async (req, res) => {
+  try {
+    if (req.url === '/subscribe' && req.method === 'POST') {
+      let body = '';
+      req.on('data', chunk => body += chunk);
+      req.on('end', () => {
+        const subscription = JSON.parse(body);
+
+        // avoid duplicates
+        if (!subscriptions.find(s => s.endpoint === subscription.endpoint)) {
+          subscriptions.push(subscription);
+          fs.writeFileSync('subscriptions.json', JSON.stringify(subscriptions, null, 2));
+        }
+
+        res.writeHead(200, { 'Content-Type': 'application/json' });
+        res.end(JSON.stringify({ success: true }));
+      });
+      return;
     }
-    res.end()
-  } else {
-    const url = req.url.slice(1).split('?')[0] || 'quantize/index.html'
-    try {
-      if (url.includes('..')) {
-        throw new TypeError('invalid path')
-      }
-      if (url === 'access-tokens.json') {
-        throw new TypeError('invalid path')
-      }
-      res.writeHead(200, {
-        'Content-Type': mime.getType(url),
-        'Cache-Control': 'no-cache'
-      })
-      for await (const chunk of fs.createReadStream(url)) {
-        res.write(chunk)
-      }
-      res.end()
-    } catch (err) {
-      console.error(err)
-      if (!res.headersSent) {
-        res.writeHead(404)
-      }
-      res.end()
+
+
+    if (req.url === '/notify' && req.method === 'POST') {
+      subscriptions = subscriptions.filter(sub => {
+        webpush.sendNotification(sub, JSON.stringify({
+          title: "Test Notification",
+          body: "This is a test!"
+        })).catch(err => {
+          if (err.statusCode === 410 || err.statusCode === 404) {
+            console.log('Removing expired subscription:', sub.endpoint);
+            return false; // remove from array
+          }
+          console.error(err);
+          return true; // keep subscription
+        });
+        return true;
+      });
+
+      res.writeHead(200, { 'Content-Type': 'application/json' });
+      res.end(JSON.stringify({ success: true }));
     }
+
+
+
+    if (req.url.startsWith('/validate-token')) {
+      const token = req.url.split('/').slice(-1)?.[0];
+      if (token && allowedTokens[token]) {
+        const secure = process.env.IS_OFFLINE ? '' : 'Secure;';
+        res.writeHead(200, {
+          'set-cookie': `token=${token}; Path=/; HttpOnly; SameSite=Strict; ${secure}`
+        });
+      } else {
+        res.writeHead(401);
+      }
+      res.end();
+      return;
+    }
+
+    // Static file handler
+    const url = req.url.slice(1).split('?')[0] || 'quantize/index.html';
+    // if (url.includes('..') || url === 'access-tokens.json') {
+    //   throw new TypeError('invalid path');
+    // }
+    // res.writeHead(200, {
+    //   'Content-Type': mime.getType(url),
+    //   'Cache-Control': 'no-cache'
+    // });
+    for await (const chunk of fs.createReadStream(url)) {
+      res.write(chunk);
+    }
+    res.end();
+
+  } catch (err) {
+    console.error(err);
+    if (!res.headersSent) {
+      res.writeHead(404);
+    }
+    res.end();
   }
-})
+});
+
 
 const wss = new WebSocketServer({ noServer: true })
 
