@@ -1,0 +1,45 @@
+[
+  {
+    "username": "user",
+    "ign": "Player1",
+    "code": "1234",
+    "email": "user@example.com",
+    "pfp": "https://quantize.me/img/pfp.PNG",
+    "attributes": {
+      "unlockedGames": [
+        "Papa's Pizzeria",
+        "Papa's Burgeria",
+        "Papa's Scooperia"
+      ],
+      "favoriteGame": "Run 3"
+    }
+  },
+  {
+    "username": "guest",
+    "ign": "Player07",
+    "code": "4321",
+    "email": "guest@quantize.me",
+    "pfp": "https://quantize.me/img/pfp.PNG",
+    "attributes": {
+      "unlockedGames": [
+        "Locked"
+      ],
+      "favoriteGame": "Rogue Soul 2"
+    }
+  },
+  {
+    "username": "lytekey",
+    "ign": "LyteKey",
+    "code": "0233",
+    "email": "admin@quantize.me",
+    "pfp": "https://quantize.me/img/key.png",
+    "attributes": {
+      "unlockedGames": [
+        "Papa Louie 3",
+        "Rogue Soul 2",
+        "Run 3"
+      ],
+      "favoriteGame": "Rogue Soul 2"
+    }
+  }
+]

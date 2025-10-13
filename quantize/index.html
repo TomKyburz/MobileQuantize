@@ -1,0 +1,183 @@
+<!DOCTYPE html>
+
+<head>
+    <title>Quantize</title>
+    <link rel="apple-touch-icon" sizes="180x180" href="favicon/apple-touch-icon.png">
+    <link rel="icon" type="image/png" sizes="32x32" href="favicon/favicon-32x32.png">
+    <link rel="icon" type="image/png" sizes="16x16" href="favicon/favicon-16x16.png">
+    <link rel="manifest" href="quantize/manifest.json">
+    <link rel="stylesheet" href="quantize/style.css">
+    <link rel="icon" type="image/png" sizes="32x32" href="quantize/img/key.png">
+</head>
+
+<body>
+
+    <div id="mySidenav" class="sidenav">
+        <a href="javascript:void(0)" style="cursor:pointer;" class="closebtn" onclick="closeNav()"><img class="x" src="https://quantize.me/img/xicon.webp"></a>
+        <div>About</div>
+        <!-- <div id="install-button">About</div> -->
+        <a href="quantize/chat/index.html">Chat</a>
+        <a href="gt.html">Contact</a>
+        <a href="quantize/phasegame/index.html">Bug Tracker</a>
+        <a href="quantize/imgcode/index.html">Image Manipulation</a>
+        <a href="quantize/picontrol/index.html">User Control</a>
+    </div>
+
+    <div class="header">
+        <div class="account" style="cursor:pointer;" onclick="openNav()"><img class="burger" src="https://quantize.me/img/burgericon.png"></div>
+        <h1>GAMES</h1>
+        <div class="c" onclick="toggleAccount()"></div>
+    </div>
+    <div class="gridwrapper">
+        <section class="section-1">
+            <article class="card">
+                <div class="wrapleft"></div>
+                <div class="sectionwrap">
+                    <div class="preview"></div>
+                    <div class="words">
+                        <p id="link"></p>
+                        <!-- <p id="linktext">RoboLyte, RoboRPG, RoboHub, RoboRacing, RoboPlatformer (RoboSpace), RoboWorld, CyberRoboSpace, </p> -->
+                        <!-- <p id="linktext"><a style="text-decoration:none;font-size:35px;margin:auto;color:#818181;" href="https://quantize.me">Check it out</a></p> -->
+                    </div>
+                </div>
+                <div class="wrapright"></div>
+            </article>
+        </section>
+
+        <div class="gamegrid">
+            <a id="item" href="quantize/game/index.html?title=Papa's Pizzeria&file=papaspizzeria.swf">
+                <div id="item" style="background-color: crimson;"><img id="gameicon" style="width:230px;height:208px;" src="https://gamegfx.spielaffe.de/images/game/364/364054/37896_papas-pizzeria.png"></div>
+            </a>
+            <a id="item" href="quantize/game/index.html?title=Papa's Burgeria&file=papasburgeria.swf">
+                <div id="item" style="background-color: hotpink;"><img id="gameicon" src="//gamegfx.spielaffe.de/images/game/402/402034/35424_papas-burgeria-rcm186x186u.png"></div>
+            </a>
+            <a id="item" href="quantize/game/index.html?title=Papa's Scooperia&file=papasscooperia.swf">
+                <div id="item" style="background-color: aquamarine;"><img id="gameicon" src="//gamegfx.spielaffe.de/images/game/1033/1033000/36426_papas-scooperia-rcm186x186u.png"></div>
+            </a>
+            <a id="item" href="quantize/game/index.html?title=Redball 4&file=redball4.swf">
+                <div id="item" style="background-color: tomato;"><img id="gameicon" src="https://quantize.me/img/redball.png"></div>
+            </a>
+            <a id="item" href="quantize/game/index.html?title=Rogue Soul 2&file=rogue-soul-2-game.swf">
+                <div id="item" style="background-color: peachpuff;"><img id="gameicon" src="https://quantize.me/img/roguesoul2.jpg"></div>
+            </a>
+            <a id="item" href="quantize/game/index.html?title=Run 3&file=run3.swf">
+                <div id="item" style="background-color: fuchsia;"><img id="gameicon" src="https://quantize.me/img/run3.png"></div>
+            </a>
+            <a id="item" href="quantize/game/index.html?title=Papa Louie 3&file=papalouie3.swf&width=700&height=416">
+                <div id="item" style="background-color: deepskyblue;"><img id="gameicon" src="https://quantize.me/img/papalouie3.jpg"></div>
+            </a>
+        </div>
+    </div>
+
+    <div class="page">
+        <div class="contain">
+            <div class="overlay" onclick="toggleAccount()" id="overlay"></div>
+            <div class="model-container" id="myAccount" style="display:none;">
+                <div class="modelcontent">
+                    <div class="modelheader">
+                        <h1 class="h1account">ACCOUNT</h1></div>
+                    <div id="profileview" style="display:block;">
+                        <div class="profileimageframe">
+                            <div class="profileimage"><img src="https://quantize.me/img/pfp.PNG" class="pfp">
+                            </div>
+                        </div>
+
+                        <div class="profilename">Account Name</div>
+
+                        <div class="profiledetails">
+                            <div class="profiledetail">Username user</div>
+
+                            <div class="profiledetail2">Email user@example.com</div>
+                        </div>
+
+                        <div class="proceedbuttons">
+                            <div class="bdivider">
+                                <button id="proceedaccount">Account</button>
+                            </div>
+                            <div class="bdivider">
+                                <button id="proceed3">Support</button>
+                            </div>
+                            <div class="bdivider">
+                                <button onclick="login()" id="proceedsign">Sign In</button>
+                                <button onclick="logout()" id="proceedlog" style="display:none;">Log Out</button>
+                            </div>
+
+                        </div>
+                    </div>
+                    <div id="accountview" style="display:none;">
+
+                        <div class="profilename">Login</div>
+
+                        <form id="login" class="login">
+                            <div class="bdivider">
+                                <input placeholder="Username" class="logintext">
+                            </div>
+                            <div class="bdivider">
+                                <input style="margin-top:40px;" placeholder="Password" type="password" class="logintext">
+                            </div>
+                            <div class="bdivider">
+                                <input style="margin-top:40px;" value="Login" type="submit" class="logintext">
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <script src="quantize/login.js"></script>
+    <script>
+        var profileview = document.getElementById("profileview");
+        var y1 = document.getElementById("accountview");
+            function login() {
+              if (profileview.style.display === "block") {
+                profileview.style.display = "none";
+                y1.style.display = "block";
+              } else {
+                profileview.style.display = "block";
+                y1.style.display = "none";
+              }
+            }
+
+            function toggleAccount() {
+              var x = document.getElementById("myAccount");
+              var y = document.getElementById("overlay");
+              if (x.style.display === "none") {
+            x.style.display = "block";
+            y.style.display = "block";
+          } else {
+            x.style.display = "none";
+            y.style.display = "none";
+            profileview.style.display = "block";
+            y1.style.display = "none";
+          }
+        }
+            function closeAccount() {
+                var x = document.getElementById("myAccount");
+                if (x.style.display === "block") {
+                x.style.display = "none";
+            }
+        }
+            function openNav() {
+              document.getElementById("mySidenav").style.width = "250px";
+            }
+
+            function closeNav() {
+              document.getElementById("mySidenav").style.width = "0";
+            }
+    </script>
+
+    <script>
+        if ('serviceWorker' in navigator) {
+            // Register the Service Worker
+            navigator.serviceWorker.register('/sw.js')
+                .then(function(registration) {
+                    console.log('Service Worker registered with scope:', registration.scope);
+                })
+                .catch(function(error) {
+                    console.error('Service Worker registration failed:', error);
+                });
+        }
+    </script>
+</body>
+
+</html>
