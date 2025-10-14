@@ -1,0 +1,413 @@
+@import url('https://fonts.cdnfonts.com/css/minecraft-4');
+
+body {
+    background-color: #101010;
+    margin: 0;
+    background-image: url("img/galaxybg.jpg")
+
+}
+
+h1 {
+    color: lightgrey;
+    font-family: "Minecraft", sans-serif;
+    text-align: center;
+    font-size: 60px;
+    margin: 0;
+    height: 60px;
+}
+
+#link {
+  margin: 0;
+  padding-top: 0;
+  font-family: "Minecraft", sans-serif;
+  font-size: 25px;
+  display: flex;
+}
+
+#checkio {
+    color: #818181;
+    font-family: 'Minecraft';
+    font-size: 35px;
+    text-decoration: none;
+    transition: 0.3s;
+}
+
+#checkio:hover {
+    color: #f1f1f1;
+}
+
+.gamegrid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(220px, 1fr));
+    grid-gap: 30px 20px;
+    justify-content: start;
+    margin: 50px;
+    margin-top: 25px;
+    overflow: hidden;
+}
+
+.section-1 {
+    margin-top: 135px;
+}
+
+.gridwrapper {
+    display: flex;
+    justify-content: center;
+    flex-direction: column;
+}
+
+.wrapleft, .wrapright {
+    display: flex;
+    flex-grow: 1 ;
+}
+
+.preview {
+    background-image: url("../img/key.png");
+    background-size: cover;
+    background-position: center;
+    background-color: purple;
+    border-radius: 25px 25px 0 0;
+    height: 200px;
+}
+
+p {
+    padding: 0 20px 0 20px;
+    color: lightgrey;
+    font-family: Arial, Helvetica, sans-serif;
+}
+
+.card {
+    border-radius: 25px;
+    display: flex;
+}
+
+.sectionwrap {
+    display: flex;
+    flex-shrink: 0;
+    flex-direction: column;
+    background-color: #2f2f2f;
+    border-radius: 25px;
+    min-width: 40vw;
+}
+
+.locked {
+    width: 150px;
+}
+
+.gamegrid img {
+    width: 150px;
+    height: 150px;
+    border-radius: 30px;
+}
+
+.header {
+    position: fixed;
+    background: #2f2f2fad;
+    backdrop-filter: blur(3px);
+    border-radius: 0 0 15px 15px;
+    outline: 1px solid grey;
+    width: 100%;
+    top: 0;
+    left: 0;
+    right: 0;
+    display: -ms-flexbox;
+    display: flex;
+    -ms-flex-direction: row;
+    flex-direction: row;
+    justify-content: space-between;
+    /* -webkit-align-items: center; */
+    -webkit-box-align: center;
+    -ms-flex-align: center;
+    align-items: center;
+    height: 100px;
+    -webkit-box-flex-flow: wrap;
+    -ms-flex-flow: wrap;
+    flex-flow: wrap;
+    box-shadow: 0px 3px 3px -2px rgba(0, 0, 0, 0.2), 0px 3px 4px 0px rgba(0, 0, 0, 0.14), 0px 1px 8px 0px rgba(0, 0, 0, 0.12);
+}
+
+#item {
+    width: 230px;
+    height: 160px;
+    margin-left: auto;
+    margin-right: auto;
+    align-items: center;
+    justify-content: center;
+    display: flex;
+    border-radius: 25px;
+    background-color: #2f2f2f;
+    text-align: center;
+    padding: 20px 0;
+    overflow: hidden;
+}
+
+#gameicon {
+    width: 230px;
+    height: 208px;
+}
+
+.c {
+    margin-right: 25px;
+    width: 81px;
+    height: 81px;
+    background-image: url(https://quantize.me/img/pfp.PNG);
+    background-repeat: no-repeat;
+    background-position: center;
+    background-size: 100%;
+    border-radius: 50%;
+    overflow: hidden;
+    border: 2px solid white;
+}
+
+.pfp {
+    width: 120px;
+    height: 120px;
+    border-radius: 50%;
+}
+
+.account {
+    margin-left: 25px;
+    font-size: 85px;
+    width: 85px;
+    height: 85px;
+    border-radius: 50%;
+    /* background-image: url(img/Adam.jpg); */
+    /* -webkit-box-shadow: 0px 10px 40px 10px rgba(251,59,52,0.75); */
+    background-repeat: no-repeat;
+    background-position: center center;
+    background-size: cover;
+}
+
+.burger {
+    width: 85px;
+    height: 85px;
+}
+
+.x {
+    width: 25px;
+    height: 25px;
+}
+
+.sidenav {
+    z-index: 12;
+    height: 100%;
+    width: 0;
+    position: fixed;
+    top: 0;
+    left: 0;
+    overflow-x: hidden;
+    transition: 0.6s;
+    padding-top: 60px;
+    background-color: #2f2f2f;
+}
+
+  .sidenav a, #install-button {
+    padding: 8px 8px 8px 32px;
+    text-decoration: none;
+    font-family: "Minecraft", sans-serif;
+    font-size: 25px;
+    color: #818181;
+    display: block;
+    transition: 0.3s;
+  }
+
+  .sidenav a:hover, #install-button:hover {
+    color: #f1f1f1;
+  }
+
+  .sidenav .closebtn {
+    position: absolute;
+    top: 0;
+    right: 25px;
+    font-size: 36px;
+    margin-left: 50px;
+  }
+
+  @media screen and (max-height: 450px) {
+    .sidenav {padding-top: 15px;}
+    .sidenav a {font-size: 18px;}
+  }
+
+  .h1account {
+    margin: 0;
+}
+
+.model-container {
+    background-color: #2f2f2f;
+    position: relative;
+    z-index: 101;
+    width: 30rem;
+    max-width: 30rem;
+    max-height: 100%;
+    overflow-y: auto;
+    border-radius: .75rem;
+    pointer-events: auto;
+}
+
+.words {
+  display: flex;
+  height: 60px;
+  flex-direction: column;
+  justify-content: center;
+}
+
+.page {
+    font-family: "Minecraft", sans-serif;
+    color: white;
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    pointer-events: none;
+}
+
+.overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.2);
+    backdrop-filter: blur(4px);
+    z-index: 100;
+    display: none;
+    pointer-events: auto;
+}
+
+.contain {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    position: fixed;
+    width: 100%;
+    height: 100%;
+}
+
+/* background-color: red;
+    width: 540px;
+    height: 470px;
+    border-radius: 25px; */
+
+.modelheader {
+    background-color: #696969;
+    position: relative;
+    padding: 1.5rem 15px;
+    border-bottom: 1px solid rgba(7,2,20,.1);
+    font-size: 18px;
+    font-weight: 900;
+    line-height: 2rem;
+    text-align: center;
+}
+
+#profileview, #profileview2 {
+    height: 400px;
+    padding: 0 15px 3px;
+}
+
+.profileimageframe {
+    position: relative;
+    width: 100%;
+    height: 80px;
+    margin-top: 3rem;
+    margin-bottom: 6px;
+    text-align: center;
+}
+
+.profileimage {
+    width: 100%;
+    height: 80px;
+}
+
+.pfp {
+    width: 80px;
+    height: 100%;
+    border-style: solid;
+    border-radius: 50%;
+}
+
+.profilename {
+    margin-top: 1rem;
+    margin-bottom: 1rem;
+    font-size: 21px;
+    font-weight: 500;
+    line-height: 2rem;
+    text-align: center;
+    word-break: break-all;
+}
+
+.profiledetails {
+    margin-bottom: 2.5rem;
+}
+
+.profiledetail, .profiledetail2 {
+    font-weight: 400;
+    overflow: hidden;
+    font-size: 17px;
+    line-height: 2rem;
+    text-align: center;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+}
+
+.proceedbuttons {
+  border-radius: 15px;
+}
+
+.login {
+  border-radius: 15px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding-bottom: 35px;
+}
+
+button {
+    font-family: "Minecraft", sans-serif;
+    color: white;
+    border-color: grey;
+}
+
+.bdivider {
+    border-radius: 20px;
+    border: none;
+    border-width: 0;
+}
+
+#proceedaccount:hover, #proceedsign:hover, #proceed3:hover, #proceedlog:hover {
+  background-color: #696969a5;
+}
+
+.c img {
+  border: 1px solid white;
+}
+
+#proceedaccount, #proceedsign, #proceed3, #proceedlog {
+    display: flex;
+    padding-top: .5rem;
+    padding-bottom: .5rem;
+    padding-left: 1.25rem;
+    padding-right: 1.25rem;
+    width: 100%;
+    height: 100%;
+    border: none;
+    border-bottom-style: solid;
+    border-bottom-color: darkgrey;
+    background-color: #696969;
+    font-size: 20px;
+    cursor: pointer;
+}
+
+.logintext {
+  display: flex;
+  padding-top: .5rem;
+  padding-bottom: .5rem;
+  padding-left: 1.25rem;
+  padding-right: 1.25rem;
+  height: 100%;
+  border: none;
+  border-bottom-style: solid;
+  border-bottom-color: darkgrey;
+  background-color: #696969;
+  font-size: 20px;
+}
