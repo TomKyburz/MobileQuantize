@@ -56,6 +56,10 @@ server.on('request', async (req, res) => {
       return;
     }
 
+    if (req.url === '/getinfo/' && req.method === 'GET') {
+	res.write('Quantize');
+	res.write('Status: Online);
+    }
 
     if (req.url === '/notify' && req.method === 'POST') {
       subscriptions = subscriptions.filter(sub => {
