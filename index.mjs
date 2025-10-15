@@ -58,7 +58,7 @@ server.on('request', async (req, res) => {
 
     if (req.url === '/getinfo/' && req.method === 'GET') {
 	res.write('Quantize');
-	res.write('Status: Online);
+	res.write('Status: Online');
     }
 
     if (req.url === '/notify' && req.method === 'POST') {
