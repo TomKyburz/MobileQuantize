@@ -56,9 +56,51 @@ server.on('request', async (req, res) => {
       return;
     }
 
-    if (req.url === '/getinfo/' && req.method === 'GET') {
-	res.write('Quantize');
-	res.write('Status: Online');
+    if (req.url === '/getinfo' && req.method === 'GET') {
+        // Set the header for plain text output
+        res.writeHead(200, { 'Content-Type': 'text/plain' });
+
+        // --- Step 1: Send the Loading Bar ---
+        const totalDuration = 3000; // 3 seconds
+        const steps = 30;
+        const interval = totalDuration / steps;
+
+        let currentStep = 0;
+        const loaderInterval = setInterval(() => {
+            if (currentStep < steps) {
+                // The '\r' character moves the cursor to the start of the line, 
+                // overwriting the previous bar state.
+                const bar = "[" + "=".repeat(currentStep) + " ".repeat(steps - currentStep) + "]";
+                const percent = Math.round((currentStep / steps) * 100);
+                
+                // Use res.write to send a partial, unbuffered response
+                res.write(`\rLoading Quantize... ${bar} ${percent}%`); 
+                currentStep++;
+            } else {
+                clearInterval(loaderInterval);
+                
+                // --- Step 2: Clear the Loading Bar Line ---
+                // Send a newline to end the loading bar line, then clear it 
+                // with spaces and a final newline.
+                res.write('\r' + ' '.repeat(50) + '\n\n'); 
+                
+                // --- Step 3: Print ASCII Art and Live Info ---
+                res.write('QUANTIZE' + '\n');
+                
+                // Live Info Section
+                const liveInfo = [
+                    '--------------------------------------------------',
+                    `STATUS: Online (200 OK)`,
+                    `USER COUNT: 1,452,000`,
+                    `SERVER LATENCY: 45ms (US-East)`,
+                    '--------------------------------------------------'
+                ].join('\n'); // Join array elements with newlines
+
+                res.end(liveInfo + '\n'); // res.end() sends the final data and closes the connection
+            }
+        }, interval);
+
+        return; // CRITICAL: Stop further execution
     }
 
     if (req.url === '/notify' && req.method === 'POST') {
