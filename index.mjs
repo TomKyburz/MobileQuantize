@@ -56,11 +56,6 @@ server.on('request', async (req, res) => {
       return;
     }
 
-<<<<<<< HEAD
-    if (req.url === '/getinfo/' && req.method === 'GET') {
-	res.write('Quantize');
-	res.write('Status: Online');
-=======
     if (req.url === '/getinfo' && req.method === 'GET') {
         // Set the header for plain text output
         res.writeHead(200, { 'Content-Type': 'text/plain' });
@@ -106,7 +101,6 @@ server.on('request', async (req, res) => {
         }, interval);
 
         return; // CRITICAL: Stop further execution
->>>>>>> 080613e4c923fa26d8c2e66cd5e292873a9775a3
     }
 
     if (req.url === '/notify' && req.method === 'POST') {
