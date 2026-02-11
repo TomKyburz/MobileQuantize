@@ -68,25 +68,25 @@ server.on('request', async (req, res) => {
         let currentStep = 0;
         const loaderInterval = setInterval(() => {
             if (currentStep < steps) {
-                // The '\r' character moves the cursor to the start of the line, 
+                // The '\r' character moves the cursor to the start of the line,
                 // overwriting the previous bar state.
                 const bar = "[" + "=".repeat(currentStep) + " ".repeat(steps - currentStep) + "]";
                 const percent = Math.round((currentStep / steps) * 100);
-                
+
                 // Use res.write to send a partial, unbuffered response
-                res.write(`\rLoading Quantize... ${bar} ${percent}%`); 
+                res.write(`\rLoading Quantize... ${bar} ${percent}%`);
                 currentStep++;
             } else {
                 clearInterval(loaderInterval);
-                
+
                 // --- Step 2: Clear the Loading Bar Line ---
-                // Send a newline to end the loading bar line, then clear it 
+                // Send a newline to end the loading bar line, then clear it
                 // with spaces and a final newline.
-                res.write('\r' + ' '.repeat(50) + '\n\n'); 
-                
+                res.write('\r' + ' '.repeat(50) + '\n\n');
+
                 // --- Step 3: Print ASCII Art and Live Info ---
                 res.write('QUANTIZE' + '\n');
-                
+
                 // Live Info Section
                 const liveInfo = [
                     '--------------------------------------------------',
@@ -144,10 +144,10 @@ server.on('request', async (req, res) => {
     // if (url.includes('..') || url === 'access-tokens.json') {
     //   throw new TypeError('invalid path');
     // }
-    // res.writeHead(200, {
-    //   'Content-Type': mime.getType(url),
-    //   'Cache-Control': 'no-cache'
-    // });
+    res.writeHead(200, {
+      'Content-Type': mime.getType(url),
+      'Cache-Control': 'no-cache'
+    });
     for await (const chunk of fs.createReadStream(url)) {
       res.write(chunk);
     }
