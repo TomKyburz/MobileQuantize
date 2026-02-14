@@ -2,9 +2,8 @@
 
 const CACHE_VERSION = 'v1';
 const CACHE_ASSETS = [
-  '/quantize/picontrol/index.html',
-  '/quantize/picontrol/style.css',
-  '/quantize/picontrol/function.js',
+  '/quantize/index.html',
+  '/quantize/style.css',
   '/quantize/manifest.json'
 ];
 
