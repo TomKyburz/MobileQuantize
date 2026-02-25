@@ -10,12 +10,18 @@
     <meta name="viewport" content="width=device-width, initial-scale=1">
 </head>
 <body>
+  <script type="importmap">
+        { "imports": { "three": "https://unpkg.com/three@latest/build/three.module.js" } }
+    </script>
+
+    <script type="module" src="quantize/js/3dpreview.js">
+    </script>
     <div id="mySidenav" class="sidenav" style="width:0;border:none;">
         <!-- <a href="javascript:void(0)" style="cursor:pointer;" class="closebtn" onclick="closeNav()"><img class="x" src="https://quantize.me/img/xicon.webp"></a> -->
         <a href="#">About</a>
-        <a href="quantize/chat/">Chat</a>
-        <a href="quantize/picontrol/">Contact</a>
-        <a style="border-bottom:2px solid white" href="quantize/phasegame">Profile</a>
+        <a href="quantize/chat/index.html">Chat</a>
+        <a href="quantize/picontrol/index.html">Contact</a>
+        <a style="border-bottom:2px solid white" href="quantize/phasegame/index.html">Profile</a>
       </div>
 
     <div class="header">
@@ -23,8 +29,9 @@
         <h1>GAMES</h1>
         <div class="c"><div onclick="toggleAccount()"><img src="quantize/img/key.png" class="chat"></div></div></div></div>
 
+        <div class="world" id="world"></div>
 <div class="gamegrid" id="gamegrid">
-   <!-- <a id="itemlinkwrapper" href="/game/?title=Papa's Pizzeria&file=/game/papaspizzeria.swf"><div id="item"><img id="gameicon" src="https://gamegfx.spielaffe.de/images/game/402/402034/35424_papas-burgeria-rcm186x186u.png"></div></a> -->
+</div>
 
 <script src="quantize/js/loadgames.js"></script>
 
