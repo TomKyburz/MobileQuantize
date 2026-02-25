@@ -11,6 +11,25 @@ body {
     display: none;
 }
 
+.world {
+  display:flex;
+  /* width: 75%; */
+  height: 150px;
+  aspect-ratio: 16/9;
+  background-color: red;
+  margin: 0 auto;
+  margin-top: 120px;
+  border-radius: 25px;
+}
+
+.world > canvas {
+  border-radius: 25px;
+}
+
+.world:hover {
+  cursor: pointer;
+}
+
 h1 {
     color: #3c3cf9;
     font-family: "Minecraft", sans-serif;
@@ -34,7 +53,7 @@ h1 {
     grid-gap: 15px;
     padding: 25px;
     justify-content: start;
-    margin-top: 120px;
+    /* margin-top: 120px; */
     overflow: hidden;
     justify-items: center;
 }
@@ -145,9 +164,6 @@ img {
   .c {
     display: none;
   }
-  .gamegrid {
-    margin-top: 12vh;
-  }
   .account {
     margin-left: 0;
   }
@@ -193,7 +209,7 @@ img {
 }
 
 #item:hover {
-  filter: saturate(1.15) brightness(1.15);
+  filter: saturate(1.09) brightness(1.15);
 }
 
 /* #item:hover > img {

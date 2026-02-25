@@ -4,21 +4,27 @@ fetch("quantize/games.json")
 .then(res => res.json())
 .then(data => {
   const gamegrid = document.getElementById("gamegrid");
+
+  // Sort alphabetically by item.name
+  data.games.sort((a, b) =>
+    a.name.localeCompare(b.name)
+  );
+
   data.games.forEach(item => {
-    // const number = 0
-    // console.log(item)
     const a = document.createElement("a");
     a.id = "itemlinkwrapper";
-    a.href = `/game/?title=${item.fullname}&file=/game/${item.name}.swf`
+    a.href = `/game/?title=${item.fullname}&file=/game/${item.name}.swf`;
+
     const divitem = document.createElement("div");
     divitem.id = "item";
+
     const img = document.createElement("img");
     img.id = "gameicon";
-    img.src = `https://${item.logo}`;
-    divitem.appendChild(img)
-    a.appendChild(divitem)
+    img.src = item.logo;
+
+    divitem.appendChild(img);
+    a.appendChild(divitem);
     gamegrid.appendChild(a);
-    // number += 1;
   });
 })
 .catch(err => console.error(err));

@@ -141,9 +141,9 @@ server.on('request', async (req, res) => {
 
     // Static file handler
     const url = req.url.slice(1).split('?')[0] || 'quantize/index.html';
-    // if (url.includes('..') || url === 'access-tokens.json') {
-    //   throw new TypeError('invalid path');
-    // }
+    if (url.includes('..') || url === 'access-tokens.json') {
+      throw new TypeError('invalid path');
+    }
     res.writeHead(200, {
       'Content-Type': mime.getType(url),
       'Cache-Control': 'no-cache'
@@ -238,4 +238,6 @@ wss.on('connection', function onConnection (ws, req) {
 
 const port = process.env.PORT || 5000
 
-server.listen(port, () => console.log(`Server started on port ${port}`))
+server.listen(port, () => console.log(`
+  \x1b[31m\n\n   ┌────────────────────┐\n   │ Server started     │\n   │                    │\n   │ Port: ${port}         │\n   │                    │\n   └────────────────────┘\x1b[0m
+    `))

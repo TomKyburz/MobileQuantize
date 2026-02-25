@@ -1,116 +1,157 @@
-var config = {
-    type: Phaser.AUTO,
-    width: 1920,
-    height: 1080,
-    parent: 'game-container',
-    physics: {
-        default: 'arcade',
-        arcade: {
-            gravity: { y: 6000 },
-            debug: false
-        }
-    },
-    scene: {
-        preload: preload,
-        create: create,
-        update: update
+import * as THREE from 'https://unpkg.com/three@latest/build/three.module.js';
+import { PointerLockControls } from 'https://unpkg.com/three@latest/examples/jsm/controls/PointerLockControls.js';
+import * as CANNON from 'https://cdn.jsdelivr.net/npm/cannon-es@0.20.0/dist/cannon-es.js';
+
+const loader = new THREE.TextureLoader();
+
+const adam = "assets/cabin.jpg";
+const floorTexture = loader.load('assets/grass.png');
+const roofTexture = loader.load('https://quantize.me/img/Adam.jpg');
+
+const screen = document.getElementById("game-container");
+let screenW = screen.clientWidth;
+let screenH = screen.clientHeight;
+
+const scene = new THREE.Scene();
+const camera = new THREE.PerspectiveCamera(65, screenW / screenH, 0.1, 1000);
+
+const keys = {};
+document.addEventListener('keydown', (e) => { keys[e.code] = true; });
+document.addEventListener('keyup', (e) => { keys[e.code] = false; });
+
+const renderer = new THREE.WebGLRenderer();
+renderer.setSize(screenW, screenH);
+renderer.setClearColor(0x000040, 1);
+screen.appendChild(renderer.domElement);
+
+window.addEventListener('resize', () => {
+    screenW = screen.clientWidth;
+    screenH = screen.clientHeight;
+    camera.aspect = screenW / screenH;
+    camera.updateProjectionMatrix();
+    renderer.setSize(screenW, screenH);
+});
+
+const controls = new PointerLockControls(camera, renderer.domElement);
+scene.add(camera);
+
+document.addEventListener('click', (event) => {
+    if (event.target.tagName !== 'BUTTON') {
+        controls.lock();
     }
+});
+
+// --- TOGGLE LOGIC ---
+let activePlayer = 1;
+window.grid = function() {
+    activePlayer = activePlayer === 1 ? 2 : 1;
 };
 
-var game = new Phaser.Game(config);
+// --- FLOOR & ROOF ---
+floorTexture.magFilter = THREE.NearestFilter;
+floorTexture.minFilter = THREE.NearestFilter;
+floorTexture.wrapS = THREE.RepeatWrapping;
+floorTexture.wrapT = THREE.RepeatWrapping;
+floorTexture.repeat.set(10, 10);
 
-function preload ()
-{
-    this.load.image('sky', 'assets/sky.png');
-    this.load.image('ground', 'assets/platform.png');
-    this.load.image('star', 'assets/star.png');
-    this.load.image('bomb', 'assets/bomb.png');
-    this.load.spritesheet('dude',
-        'assets/dude.png',
-        { frameWidth: 32, frameHeight: 48 }
-    );
+const floor = new THREE.Mesh(new THREE.PlaneGeometry(50, 50), new THREE.MeshBasicMaterial({ map: floorTexture, side: THREE.DoubleSide }));
+floor.rotation.x = -Math.PI / 2;
+scene.add(floor);
+
+const roof = new THREE.Mesh(new THREE.PlaneGeometry(50, 50), new THREE.MeshBasicMaterial({ map: roofTexture, side: THREE.DoubleSide }));
+roof.rotation.x = -Math.PI / 2;
+roof.position.y = 18;
+scene.add(roof);
+
+function createWall(x, y, z, rotationY, textureUrl) {
+    const wallTexture = loader.load(textureUrl);
+    wallTexture.magFilter = THREE.NearestFilter;
+    wallTexture.minFilter = THREE.NearestFilter;
+    const wall = new THREE.Mesh(new THREE.PlaneGeometry(50, 20), new THREE.MeshBasicMaterial({ map: wallTexture, side: THREE.DoubleSide }));
+    wall.position.set(x, y, z);
+    wall.rotation.y = rotationY;
+    scene.add(wall);
 }
 
-var platforms;
+createWall(0, 10, -25, 0, adam);
+createWall(0, 10, 25, 0, adam);
+createWall(-25, 10, 0, Math.PI / 2, adam);
+createWall(25, 10, 0, Math.PI / 2, adam);
 
-function create ()
-{
-    this.add.image(960, 540, 'sky');
-    // this.add.image(960, 540, 'star');
-    platforms = this.physics.add.staticGroup();
+const hudPos = document.getElementById("pos");
 
-    platforms.create(960, 1048, 'ground').setScale(4.8).refreshBody();
+// --- PHYSICS ---
+const world = new CANNON.World();
+world.gravity.set(0, -9.82, 0);
 
-    // platforms.create(600, 400, 'ground');
-    // platforms.create(50, 250, 'ground');
-    // platforms.create(750, 220, 'ground');
-    player = this.physics.add.sprite(100, 450, 'dude').setScale(3);
-    player.setBounce(0.2);
-    player.setCollideWorldBounds(true);
-    this.physics.add.collider(player, platforms);
-    cursors = this.input.keyboard.addKeys({
-      up: Phaser.Input.Keyboard.KeyCodes.W,
-      left: Phaser.Input.Keyboard.KeyCodes.A,
-      down: Phaser.Input.Keyboard.KeyCodes.S,
-      right: Phaser.Input.Keyboard.KeyCodes.D,
-      // optional: still support arrow keys too
-      arrowUp: Phaser.Input.Keyboard.KeyCodes.UP,
-      arrowLeft: Phaser.Input.Keyboard.KeyCodes.LEFT,
-      arrowDown: Phaser.Input.Keyboard.KeyCodes.DOWN,
-      arrowRight: Phaser.Input.Keyboard.KeyCodes.RIGHT
-    });
-    let jumpCount = 0;
-    const maxJumps = 2;
+const groundBody = new CANNON.Body({ type: CANNON.Body.STATIC, shape: new CANNON.Plane() });
+groundBody.quaternion.setFromEuler(-Math.PI / 2, 0, 0);
+world.addBody(groundBody);
 
-    this.anims.create({
-      key: 'left',
-      frames: this.anims.generateFrameNumbers('dude', { start: 0, end: 3 }),
-      frameRate: 10,
-      repeat: -1
-});
+// Player 1
+const playerBody = new CANNON.Body({ mass: 60, shape: new CANNON.Sphere(1), fixedRotation: true, position: new CANNON.Vec3(5, 3, -5) });
+world.addBody(playerBody);
+const playerMesh = new THREE.Mesh(new THREE.SphereGeometry(1, 16, 16), new THREE.MeshBasicMaterial({ color: 0x00ff00, wireframe: true }));
+scene.add(playerMesh);
 
-    this.anims.create({
-      key: 'turn',
-      frames: [ { key: 'dude', frame: 4 } ],
-      frameRate: 20
-});
+// Player 2
+const player2Body = new CANNON.Body({ mass: 60, shape: new CANNON.Box(new CANNON.Vec3(0.5, 1.5, 0.5)), fixedRotation: true, position: new CANNON.Vec3(5, 3, -12) });
+world.addBody(player2Body);
+const faceTex = loader.load('https://quantize.me/img/Adam.jpg');
+const sideTex = loader.load('assets/cabin.jpg');
+[faceTex, sideTex].forEach(t => { t.magFilter = THREE.NearestFilter; t.minFilter = THREE.NearestFilter; });
+const p2Materials = [
+    new THREE.MeshBasicMaterial({ map: sideTex }), new THREE.MeshBasicMaterial({ map: sideTex }),
+    new THREE.MeshBasicMaterial({ map: sideTex }), new THREE.MeshBasicMaterial({ map: sideTex }),
+    new THREE.MeshBasicMaterial({ map: faceTex }), new THREE.MeshBasicMaterial({ map: sideTex }),
+];
+const player2Mesh = new THREE.Mesh(new THREE.BoxGeometry(1, 3, 1), p2Materials);
+scene.add(player2Mesh);
 
-    this.anims.create({
-      key: 'right',
-      frames: this.anims.generateFrameNumbers('dude', { start: 5, end: 8 }),
-      frameRate: 10,
-      repeat: -1
-});
-}
+// --- CAMERA SETTINGS ---
+const cameraOffset = new THREE.Vector3(0, 3, 6);
 
-function update () {
-  if (cursors.left.isDown || cursors.arrowLeft.isDown)
-{
-    player.setVelocityX(-1000);
+function animate() {
+    requestAnimationFrame(animate);
+    world.fixedStep();
 
-    player.anims.play('left', true);
-}
-else if (cursors.right.isDown || cursors.arrowRight.isDown)
-{
-    player.setVelocityX(1000);
+    const currentBody = activePlayer === 1 ? playerBody : player2Body;
+    const currentMesh = activePlayer === 1 ? playerMesh : player2Mesh;
 
-    player.anims.play('right', true);
-}
-else
-{
-    player.setVelocityX(0);
+    if (controls.isLocked) {
+        // 1. Get Camera Euler to separate Yaw (Y) from Pitch (X)
+        const euler = new THREE.Euler().setFromQuaternion(camera.quaternion, 'YXZ');
 
-    player.anims.play('turn');
-}
+        // 2. Rotate the Player Mesh ONLY on the Y axis (Yaw)
+        currentMesh.rotation.y = euler.y;
 
-if (player.body.touching.down) {
-   jumpCount = 0;
- }
+        // 3. Horizontal movement based on where camera faces
+        const direction = new THREE.Vector3(0, 0, -1).applyQuaternion(new THREE.Quaternion().setFromEuler(new THREE.Euler(0, euler.y, 0)));
+        const sideVector = new THREE.Vector3().crossVectors(new THREE.Vector3(0, 1, 0), direction);
 
- // Check for jump key press (use Phaser’s justDown to trigger once)
- if (cursors.up.isDown || cursors.arrowUp.isDown) {
-   if (player.body.touching.down) {
-      player.setVelocityY(-2000);
+        currentBody.velocity.x = 0;
+        currentBody.velocity.z = 0;
+
+        const speed = 10;
+        if (keys['KeyW']) { currentBody.velocity.x += direction.x * speed; currentBody.velocity.z += direction.z * speed; }
+        if (keys['KeyS']) { currentBody.velocity.x -= direction.x * speed; currentBody.velocity.z -= direction.z * speed; }
+        if (keys['KeyA']) { currentBody.velocity.x += sideVector.x * speed; currentBody.velocity.z += sideVector.z * speed; }
+        if (keys['KeyD']) { currentBody.velocity.x -= sideVector.x * speed; currentBody.velocity.z -= sideVector.z * speed; }
+        if (keys['Space'] && Math.abs(currentBody.velocity.y) < 0.01) currentBody.velocity.y = 5;
     }
- }
+
+    // --- POSITION SYNC ---
+    playerMesh.position.copy(playerBody.position);
+    player2Mesh.position.copy(player2Body.position);
+
+    // --- THIRD PERSON CAMERA FIX ---
+    // Instead of using lookAt (which breaks mouse control),
+    // we move the camera relative to the player's CURRENT rotation.
+    const relativeOffset = cameraOffset.clone().applyQuaternion(currentMesh.quaternion);
+    camera.position.copy(currentBody.position).add(relativeOffset);
+
+    if(hudPos) hudPos.textContent = `P${activePlayer} | X: ${camera.position.x.toFixed(2)}, Y: ${camera.position.y.toFixed(2)}, Z: ${camera.position.z.toFixed(2)}`;
+    renderer.render(scene, camera);
 }
+
+animate();

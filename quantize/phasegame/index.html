@@ -19,8 +19,22 @@
     <meta name="theme-color" content="#ffffff">
 </head>
 <body>
-    <div class="header"><a class="backbtn" href="../..">BACK</a><h1 id="game-title"></h1><div class="account">yo</div></div>
-<div id="game-container"></div>
-<script src="game.js"></script>
+  <script type="importmap">
+        { "imports": { "three": "https://unpkg.com/three@latest/build/three.module.js" } }
+    </script>
+    <div class="header"><h1 id="game-title"></h1></div>
+    <script type="module" src="game.js"></script>
+    <div id="game-container">
+        <div id="hud">
+            <!-- <div id="crosshair"></div> -->
+            <div id="stats">
+                <span id="pos">X: 0.00, Y: 0.00, Z: 0.00</span>
+                <div id="debug">
+                    <button id="grid" onclick="grid(); event.stopPropagation();">Grid</button>
+                    <button id="lines" onclick="lines(); event.stopPropagation();">Axes</button>
+                </div>
+            </div>
+        </div>
+    </div>
 </body>
 </html>
