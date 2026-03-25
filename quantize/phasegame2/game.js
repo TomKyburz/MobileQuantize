@@ -40,7 +40,7 @@ function connectWS() {
   };
   ws.onclose = () => { setTimeout(connectWS, 1000); };
 }
-connectWS();
+//connectWS();
 
 const screen = document.getElementById("game-container");
 const full = document.getElementById("lines");
