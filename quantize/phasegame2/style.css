@@ -26,6 +26,7 @@ body {
     font-family: 'Courier New', Courier, monospace;
     padding: 20px;
     box-sizing: border-box;
+    z-index: 999;
 }
 
 #stats {
