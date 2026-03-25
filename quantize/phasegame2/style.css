@@ -76,7 +76,7 @@ body {
     justify-content: start;
     position: relative;
     margin: 0 auto;
-    height: 75vh;
+    height: 75dvh;
     aspect-ratio: 16/9;
     background: #151515;
 }
@@ -121,7 +121,7 @@ canvas {
 
   #game-container {
     width: 95vw;
-    height: 100vh;
+    height: 100dvh;
     margin: 0 auto;
     aspect-ratio: unset; /* IMPORTANT: remove constraint */
   }
