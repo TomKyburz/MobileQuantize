@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<head>
+    <title id="page-title"></title>
+    <script src="https://cdn.jsdelivr.net/npm/phaser@3/dist/phaser.js"></script>
+    <link rel="stylesheet" type="text/css" href="style.css">
+    <link rel="icon" type="image/png" sizes="16x16" href="../favicons/favicon-16x16.png">
+    <link rel="apple-touch-icon" sizes="57x57" href="../favicons/apple-touch-icon-57x57.png">
+    <link rel="apple-touch-icon" sizes="60x60" href="../favicons/apple-touch-icon-60x60.png">
+    <link rel="apple-touch-icon" sizes="72x72" href="../favicons/apple-touch-icon-72x72.png">
+    <link rel="apple-touch-icon" sizes="76x76" href="../favicons/apple-touch-icon-76x76.png">
+    <link rel="icon" type="image/png" sizes="96x96"  href="../favicons/apple-touch-icon-96x96.png">
+    <link rel="apple-touch-icon" sizes="114x114" href="../favicons/apple-touch-icon-114x114.png">
+    <link rel="apple-touch-icon" sizes="120x120" href="../favicons/apple-touch-icon-120x120.png">
+    <link rel="apple-touch-icon" sizes="144x144" href="../favicons/apple-touch-icon-144x144.png">
+    <link rel="apple-touch-icon" sizes="152x152" href="../favicons/apple-touch-icon-152x152.png">
+    <link rel="apple-touch-icon" sizes="180x180" href="../favicons/apple-touch-icon-180x180.png">
+    <link rel="icon" type="image/png" sizes="192x192"  href="../favicons/android-icon-192x192.png">
+    <meta name="msapplication-TileColor" content="#ffffff">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="theme-color" content="#ffffff">
+</head>
+<body>
+  <script type="importmap">
+        {
+          "imports": {
+            "three": "https://unpkg.com/three@latest/build/three.module.js",
+            "pointerlock": "https://unpkg.com/three@latest/examples/jsm/controls/PointerLockControls.js",
+            "cannon": "https://cdn.jsdelivr.net/npm/cannon-es@0.20.0/dist/cannon-es.js"
+    }
+}
+    </script>
+    <div class="header"><h1 id="game-title"></h1></div>
+    <script type="module" src="game.js"></script>
+    <div id="game-container">
+        <div id="hud">
+            <!-- <div id="crosshair"></div> -->
+            <div id="stats">
+                <span id="pos">X: 0.00, Y: 0.00, Z: 0.00</span>
+                <div id="debug">
+                    <button id="grid" onclick="grid(); event.stopPropagation();">Grid</button>
+                    <button id="lines" onclick="lines(); event.stopPropagation();">Axes</button>
+                </div>
+            </div>
+        </div>
+    </div>
+  <!-- </div id="fullscreen"></div> -->
+</body>
+</html>

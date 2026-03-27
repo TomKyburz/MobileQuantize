@@ -24,7 +24,7 @@
     {
       "name": "redball4",
       "fullname": "Red Ball 4",
-      "logo": "quantize/gameicons/redball.WEBP",
+      "logo": "quantize/gameicons/redball.webp",
       "banner": "https://example.com/images/game4_banner.jpg",
       "gametype": "platformer"
     },
@@ -45,7 +45,7 @@
     {
       "name": "papalouie3",
       "fullname": "Papa Louie 3",
-      "logo": "quantize/gameicons/papalouie3.WEBP",
+      "logo": "quantize/gameicons/papalouie3.webp",
       "banner": "https://example.com/images/game6_banner.jpg",
       "gametype": "platformer"
     },
@@ -206,7 +206,7 @@
     {
       "name": "roguesoul",
       "fullname": "Rogue Soul",
-      "logo": "quantize/gameicons/roguesoul.WEBP",
+      "logo": "quantize/gameicons/roguesoul.webp",
       "banner": "https://example.com/images/watersons_banner.jpg",
       "gametype": "adventure"
     },
