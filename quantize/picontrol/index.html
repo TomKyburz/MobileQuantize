@@ -1,0 +1,86 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+    <title>Quantize</title>
+    <link rel="manifest" href="../manifest.json">
+    <meta name="theme-color" content="#111">
+    <link rel="apple-touch-icon" sizes="180x180" href="../../favicon/apple-touch-icon.png">
+    <link rel="icon" type="image/png" sizes="32x32" href="../../favicon/favicon-32x32.png">
+    <link rel="icon" type="image/png" sizes="16x16" href="../../favicon/favicon-16x16.png">
+    <link rel="stylesheet" href="style.css">
+
+    <!-- Swiper CSS -->
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/swiper@9/swiper-bundle.min.css"/>
+</head>
+<body>
+    <div class="header">
+      <img id="install-button" src="../img/install.png">
+        <h1>PiControl</h1>
+    </div>
+
+    <!-- Swiper -->
+    <section>
+        <div class="swiper">
+            <div class="swiper-wrapper">
+                <div class="swiper-slide">
+                    <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/0/07/Button_Icon_Red.svg/250px-Button_Icon_Red.svg.png" alt="Pizzeria">
+                </div>
+                <div class="swiper-slide">
+                <div class="slidercontainer ">
+                <input type="range" min="0" max="100" value="50" class="slider"/></div>
+                </div>
+                <div class="swiper-slide">
+                    <img onclick="subscribeToPush()" src="https://upload.wikimedia.org/wikipedia/commons/thumb/0/07/Button_Icon_Red.svg/250px-Button_Icon_Red.svg.png" alt="Scooperia"></a>
+                </div>
+            </div>
+            <!-- ARROWS -->
+              <!-- <div class="swiper-button-next"></div>
+              <div class="swiper-button-prev"></div> -->
+        </div>
+    </section>
+    <script src="function.js"></script>
+    <script src="../js/install.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/swiper@9/swiper-bundle.min.js"></script>
+    <script>
+        var swiper = new Swiper(".swiper", {
+            speed: 600,
+            loop: true,
+            centeredSlides: true,
+            slidesPerView: 1,
+            // navigation: {
+            //     nextEl: ".swiper-button-next",
+            //     prevEl: ".swiper-button-prev",
+            // },
+        });
+    </script>
+<script>
+if ('serviceWorker' in navigator) {
+  navigator.serviceWorker.register('../sw.js', { scope: '../' })
+    .then(reg => console.log('Service Worker registered for Quantize scope:', reg.scope))
+    .catch(err => console.error('SW registration failed:', err));
+}
+
+window.onload = () => {
+  window.subscribeToPush = async function () {
+    const reg = await navigator.serviceWorker.ready;
+
+    const subscription = await reg.pushManager.subscribe({
+      userVisibleOnly: true,
+      applicationServerKey: 'BAE6g8gLvVBZRQpNSXoleYmEMndyJbnRBDMtMxOT7_vMyNKXfUtRjg69L4TU3q_MYciNnx4GX4S4rLqYaJLL7Qg'
+    });
+
+    await fetch('/subscribe', {
+      method: 'POST',
+      body: JSON.stringify(subscription),
+      headers: { 'Content-Type': 'application/json' }
+    });
+
+    alert('Subscribed to push notifications!');
+  };
+};
+</script>
+
+</body>
+</html>

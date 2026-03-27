@@ -1,0 +1,116 @@
+<!DOCTYPE html>
+<head>
+    <title>Quantize</title>
+    <link rel="apple-touch-icon" sizes="180x180" href="favicon/apple-touch-icon.png">
+    <link rel="icon" type="image/png" sizes="32x32" href="favicon/favicon-32x32.png">
+    <link rel="icon" type="image/png" sizes="16x16" href="/favicon/favicon-16x16.png">
+    <link rel="manifest" href="quantize/manifest.json">
+    <link rel="stylesheet" href="quantize/style.css?v=1.1">
+    <link rel="icon" type="image/png" sizes="32x32" href="quantize/img/key.png">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+</head>
+<body>
+  <script type="importmap">
+        { "imports": { "three": "https://unpkg.com/three@latest/build/three.module.js" } }
+    </script>
+
+    <script type="module" src="quantize/js/3dpreview.js">
+    </script>
+    <div id="mySidenav" class="sidenav" style="width:0;border:none;">
+        <!-- <a href="javascript:void(0)" style="cursor:pointer;" class="closebtn" onclick="closeNav()"><img class="x" src="https://quantize.me/img/xicon.webp"></a> -->
+        <a href="#">About</a>
+        <a href="quantize/chat/index.html">Chat</a>
+        <a href="quantize/picontrol/index.html">Contact</a>
+        <a style="border-bottom:2px solid white" href="quantize/phasegame2/index.html">Profile</a>
+      </div>
+
+    <div class="header">
+        <div class="account" style="cursor:pointer;" onclick="toggleNav()">&#9776;</div>
+        <h1>GAMES</h1>
+        <div class="c"><div onclick="toggleAccount()"><img src="quantize/img/key.png" class="chat"></div></div></div></div>
+
+        <div class="world" id="world"></div>
+<div class="gamegrid" id="gamegrid">
+</div>
+
+<script src="quantize/js/loadgames.js"></script>
+
+<div class="page">
+  <div class="contain">
+  <div class="overlay" onclick="toggleAccount()" id="overlay"></div>
+<div class="model-container" id="myAccount" style="display:none;">
+  <div class="modelcontent" onclick="event.stopPropagation()">
+      <div class="modelheader"><h1 class="h1account">ACCOUNT</h1></div>
+      <div class="profileview">
+          <div class="profileimageframe">
+              <div class="profileimage"><img src="https://quantize.me/img/key.png" class="pfp">
+                </div>
+          </div>
+
+          <div class="profilename">Tom Kyburz</div>
+
+          <div class="profiledetails">
+          <div class="profiledetail">Username LyteKey</div>
+
+          <div class="profiledetail">Email kyburztom@gmail.com</div></div>
+
+          <div class="proceedbuttons">
+              <div class="bdivider"><button class="proceedbutton">Account</button></div>
+              <div class="bdivider"><button class="proceedbutton">Sign In</button></div>
+              <div class="bdivider"><button class="proceedbutton">Support</button></div>
+          </div>
+
+          <section>
+              <div class="signout"></div>
+          </section>
+      </div>
+  </div>
+</div>
+</div>
+</div>
+
+<script>
+    function toggleAccount() {
+      var x = document.getElementById("myAccount");
+      var y = document.getElementById("overlay");
+      if (x.style.display === "none") {
+    x.style.display = "block";
+    y.style.display = "block";
+  } else {
+    x.style.display = "none";
+    y.style.display = "none";
+  }
+}
+    function closeAccount() {
+        var x = document.getElementById("myAccount");
+        if (x.style.display === "block") {
+        x.style.display = "none";
+    }
+}
+    function toggleNav() {
+      var x = document.getElementById("mySidenav");
+      if (x.style.width === "0px") {
+        x.style.width = "250px";
+        x.style.border = "3px solid white";
+      } else if (x.style.width === "250px") {
+        x.style.width = "0px";
+        x.style.border = "none";
+      }
+    }
+    </script>
+
+    <script>
+        if ('serviceWorker' in navigator) {
+            // Register the Service Worker
+            navigator.serviceWorker.register('quantize/sw.js')
+                .then(function(registration) {
+                    console.log('Service Worker registered with scope:', registration.scope);
+                })
+                .catch(function(error) {
+                    console.error('Service Worker registration failed:', error);
+                });
+        }
+    </script>
+    <script src="quantize/js/install.js"></script>
+</body>
+</html>

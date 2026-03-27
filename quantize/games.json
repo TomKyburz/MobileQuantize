@@ -1,0 +1,242 @@
+{
+  "games": [
+    {
+      "name": "papaspizzeria",
+      "fullname": "Papa's Pizzeria",
+      "logo": "quantize/gameicons/pizzeria.WEBP",
+      "banner": "https://example.com/images/game1_banner.jpg",
+      "gametype": "timemanagement"
+    },
+    {
+      "name": "papasburgeria",
+      "fullname": "Papa's Burgeria",
+      "logo": "quantize/gameicons/burgeria.png",
+      "banner": "https://example.com/images/game2_banner.jpg",
+      "gametype": "timemanagement"
+    },
+    {
+      "name": "papasscooperia",
+      "fullname": "Papa's Scooperia",
+      "logo": "quantize/gameicons/scooperia.WEBP",
+      "banner": "https://example.com/images/game3_banner.jpg",
+      "gametype": "timemanagement"
+    },
+    {
+      "name": "redball4",
+      "fullname": "Red Ball 4",
+      "logo": "quantize/gameicons/redball.webp",
+      "banner": "https://example.com/images/game4_banner.jpg",
+      "gametype": "platformer"
+    },
+    {
+      "name": "roguesoul2",
+      "fullname": "Rogue Soul 2",
+      "logo": "quantize/gameicons/roguesoul2.jpg",
+      "banner": "https://example.com/images/game5_banner.jpg",
+      "gametype": "platformer"
+    },
+    {
+      "name": "run3",
+      "fullname": "Run 3",
+      "logo": "quantize/gameicons/run3.png",
+      "banner": "https://example.com/images/game6_banner.jpg",
+      "gametype": "endlessrunner"
+    },
+    {
+      "name": "papalouie3",
+      "fullname": "Papa Louie 3",
+      "logo": "quantize/gameicons/papalouie3.webp",
+      "banner": "https://example.com/images/game6_banner.jpg",
+      "gametype": "platformer"
+    },
+    {
+      "name": "pandas3",
+      "fullname": "3 Pandas",
+      "logo": "quantize/gameicons/3pandas.png",
+      "banner": "https://example.com/images/game6_banner.jpg",
+      "gametype": "platformer"
+    },
+    {
+      "name": "badicecream",
+      "fullname": "Bad Ice-Cream",
+      "logo": "quantize/gameicons/badicecream.png",
+      "banner": "https://example.com/images/badicecream_banner.jpg",
+      "gametype": "arcade"
+    },
+    {
+      "name": "bobtherobber",
+      "fullname": "Bob the Robber",
+      "logo": "quantize/gameicons/bobtherobber.png",
+      "banner": "https://example.com/images/bobtherobber_banner.jpg",
+      "gametype": "stealth"
+    },
+    {
+      "name": "checkpoint",
+      "fullname": "Checkpoint",
+      "logo": "quantize/gameicons/checkpoint.png",
+      "banner": "https://example.com/images/checkpoint_banner.jpg",
+      "gametype": "arcade"
+    },
+    {
+      "name": "dentaladventure",
+      "fullname": "Dental Adventure",
+      "logo": "quantize/gameicons/dentaladventure.jpg",
+      "banner": "https://example.com/images/dentaladventure_banner.jpg",
+      "gametype": "simulation"
+    },
+    {
+      "name": "electricman2",
+      "fullname": "Electric Man 2",
+      "logo": "quantize/gameicons/electricman2.png",
+      "banner": "https://example.com/images/electricman2_banner.jpg",
+      "gametype": "fighting"
+    },
+    {
+      "name": "fancypants",
+      "fullname": "The Fancy Pants Adventures",
+      "logo": "quantize/gameicons/fancypants.png",
+      "banner": "https://example.com/images/fancypants_banner.jpg",
+      "gametype": "platformer"
+    },
+    {
+      "name": "fireboywatergirl",
+      "fullname": "Fireboy and Watergirl",
+      "logo": "quantize/gameicons/fireboywatergirl.png",
+      "banner": "https://example.com/images/fireboywatergirl_banner.jpg",
+      "gametype": "puzzle"
+    },
+    {
+      "name": "frostbite",
+      "fullname": "Frostbite",
+      "logo": "quantize/gameicons/frostbite.png",
+      "banner": "https://example.com/images/frostbite_banner.jpg",
+      "gametype": "arcade"
+    },
+    {
+      "name": "hardhathustle",
+      "fullname": "Hard Hat Hustle",
+      "logo": "quantize/gameicons/hardhathustle.jpg",
+      "banner": "https://example.com/images/hardhathustle_banner.jpg",
+      "gametype": "platformer"
+    },
+    {
+      "name": "inspectorblindson",
+      "fullname": "Inspector Blindson",
+      "logo": "quantize/gameicons/inspectorblindson.jpg",
+      "banner": "https://example.com/images/inspectorblindson_banner.jpg",
+      "gametype": "adventure"
+    },
+    {
+      "name": "iwannawin",
+      "fullname": "I Wanna Win",
+      "logo": "quantize/gameicons/iwannawin.png",
+      "banner": "https://example.com/images/iwannawin_banner.jpg",
+      "gametype": "platformer"
+    },
+    {
+      "name": "jellygo",
+      "fullname": "Jelly Go",
+      "logo": "quantize/gameicons/jellygo.png",
+      "banner": "https://example.com/images/jellygo_banner.jpg",
+      "gametype": "strategy"
+    },
+    {
+      "name": "leveleditor",
+      "fullname": "Level Editor",
+      "logo": "quantize/gameicons/leveleditor.jpg",
+      "banner": "https://example.com/images/leveleditor_banner.jpg",
+      "gametype": "puzzle"
+    },
+    {
+      "name": "neilthenail",
+      "fullname": "Neil the Nail",
+      "logo": "quantize/gameicons/neilthenail.jpg",
+      "banner": "https://example.com/images/neilthenail_banner.jpg",
+      "gametype": "platformer"
+    },
+    {
+      "name": "penguindiner",
+      "fullname": "Penguin Diner",
+      "logo": "quantize/gameicons/penguindiner.png",
+      "banner": "https://example.com/images/penguindiner_banner.jpg",
+      "gametype": "timemanagement"
+    },
+    {
+      "name": "pipetopipe",
+      "fullname": "Pipe to Pipe",
+      "logo": "quantize/gameicons/pipetopipe.png",
+      "banner": "https://example.com/images/pipetopipe_banner.jpg",
+      "gametype": "puzzle"
+    },
+    {
+      "name": "sleepspot",
+      "fullname": "Sleep Spot",
+      "logo": "quantize/gameicons/sleepspot.png",
+      "banner": "https://example.com/images/sleepspot_banner.jpg",
+      "gametype": "puzzle"
+    },
+    {
+      "name": "snailbob",
+      "fullname": "Snail Bob",
+      "logo": "quantize/gameicons/snailbob.png",
+      "banner": "https://example.com/images/snailbob_banner.jpg",
+      "gametype": "puzzle"
+    },
+    {
+      "name": "tarzanball",
+      "fullname": "Tarzan Ball",
+      "logo": "quantize/gameicons/tarzanball.png",
+      "banner": "https://example.com/images/tarzanball_banner.jpg",
+      "gametype": "arcade"
+    },
+    {
+      "name": "tastyplanet",
+      "fullname": "Tasty Planet",
+      "logo": "quantize/gameicons/tastyplanet.png",
+      "banner": "https://example.com/images/tastyplanet_banner.jpg",
+      "gametype": "arcade"
+    },
+    {
+      "name": "watersons",
+      "fullname": "The Watersons",
+      "logo": "quantize/gameicons/watersons.jpg",
+      "banner": "https://example.com/images/watersons_banner.jpg",
+      "gametype": "adventure"
+    },
+    {
+      "name": "roguesoul",
+      "fullname": "Rogue Soul",
+      "logo": "quantize/gameicons/roguesoul.webp",
+      "banner": "https://example.com/images/watersons_banner.jpg",
+      "gametype": "adventure"
+    },
+    {
+      "name": "swordsandsouls",
+      "fullname": "Swords and Souls",
+      "logo": "quantize/gameicons/swordsandsouls.png",
+      "banner": "https://example.com/images/watersons_banner.jpg",
+      "gametype": "adventure"
+    },
+    {
+      "name": "primary",
+      "fullname": "Primary",
+      "logo": "quantize/gameicons/primary.png",
+      "banner": "https://example.com/images/watersons_banner.jpg",
+      "gametype": "adventure"
+    },
+    {
+      "name": "fireboywatergirl2",
+      "fullname": "Fireboy and Watergirl: Light Temple",
+      "logo": "quantize/gameicons/fireboywatergirl2.png",
+      "banner": "https://example.com/images/fireboywatergirl_banner.jpg",
+      "gametype": "puzzle"
+    },
+    {
+      "name": "fireboywatergirl3",
+      "fullname": "Fireboy and Watergirl: Ice Temple",
+      "logo": "quantize/gameicons/fireboywatergirl3.png",
+      "banner": "https://example.com/images/fireboywatergirl_banner.jpg",
+      "gametype": "puzzle"
+    }
+  ]
+}

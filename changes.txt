@@ -1,0 +1,1 @@
+add swipe/arrow key function to gamegrid - remove all overflow in homepage
