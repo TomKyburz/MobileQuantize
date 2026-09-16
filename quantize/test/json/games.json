@@ -1,0 +1,79 @@
+{
+  "games": [
+    {
+      "name": "bTXT",
+      "fullname": "Text Content",
+      "logo": "img/txt.png",
+      "gametype": "timemanagement"
+    },
+    {
+      "name": "a",
+      "fullname": "Text Content",
+      "logo": "img/whirl.png",
+      "gametype": "timemanagement"
+    },
+    {
+      "name": "roguesoul2",
+      "fullname": "Rogue Soul 2",
+      "logo": "img/roguesoul2.jpg",
+      "banner": "https://example.com/images/game5_banner.jpg",
+      "gametype": "platformer"
+    },
+    {
+      "name": "run3",
+      "fullname": "Run 3",
+      "logo": "img/run3.png",
+      "banner": "https://example.com/images/game6_banner.jpg",
+      "gametype": "endlessrunner"
+    },
+    {
+      "name": "papalouie3",
+      "fullname": "Papa Louie 3",
+      "logo": "img/papalouie3.webp",
+      "banner": "https://example.com/images/game6_banner.jpg",
+      "gametype": "platformer"
+    },
+    {
+      "name": "electricman2",
+      "fullname": "Electric Man 2",
+      "logo": "img/electricman2.png",
+      "banner": "https://example.com/images/electricman2_banner.jpg",
+      "gametype": "fighting"
+    },
+    {
+      "name": "fancypants",
+      "fullname": "The Fancy Pants Adventures",
+      "logo": "img/fancypants.png",
+      "banner": "https://example.com/images/fancypants_banner.jpg",
+      "gametype": "platformer"
+    },
+    {
+      "name": "fireboywatergirl",
+      "fullname": "Fireboy and Watergirl",
+      "logo": "img/fireboywatergirl.png",
+      "banner": "https://example.com/images/fireboywatergirl_banner.jpg",
+      "gametype": "puzzle"
+    },
+    {
+      "name": "frostbite",
+      "fullname": "Frostbite",
+      "logo": "img/frostbite.png",
+      "banner": "https://example.com/images/frostbite_banner.jpg",
+      "gametype": "arcade"
+    },
+    {
+      "name": "jellygo",
+      "fullname": "Jelly Go",
+      "logo": "img/jellygo.png",
+      "banner": "https://example.com/images/jellygo_banner.jpg",
+      "gametype": "strategy"
+    },
+    {
+      "name": "snailbob",
+      "fullname": "Snail Bob",
+      "logo": "img/snailbob.png",
+      "banner": "https://example.com/images/snailbob_banner.jpg",
+      "gametype": "puzzle"
+    }
+  ]
+}
