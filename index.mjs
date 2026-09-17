@@ -15,14 +15,10 @@ const server = new Server((req,res)=>{
   try {
 
     // Deploy endpoint
-    if(req.method === 'POST' && req.url === '/api/deploy'){
-      if(req.headers.authorization !== `Bearer ${DEPLOY_TOKEN}`){
-        res.writeHead(401, { 'Content-Type':'application/json' })
-        res.end(JSON.stringify({ error:'Unauthorized' }))
-        return
-      }
+if(req.method === 'POST' && req.url === '/api/deploy'){
 
-      execFile('/home/pi/deploy.sh', (err, stdout, stderr)=>{
+  execFile('/home/pi/deploy.sh', (err, stdout, stderr)=>{
+
         if(err){
           console.error('Deploy failed:', stderr)
 
