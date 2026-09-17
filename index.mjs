@@ -3,28 +3,85 @@ import path from 'node:path'
 import fs from 'node:fs'
 import mime from 'mime'
 import { fileURLToPath } from 'node:url'
+import { execFile ] from 'node:child_process'
 import WebSocket, { WebSocketServer } from 'ws'
 
 const __filename = fileURLToPath(import.meta.url)
 const __dirname = path.dirname(__filename)
 
+const DEPLOY_TOKEN = process.env.DEPLOY_TOKEN
+
 const server = new Server((req,res)=>{
   try {
+
+    // Deploy endpoint
+    if(req.method === 'POST' && req.url === '/api/deploy'){
+      if(req.headers.authorization !== `Bearer ${DEPLOY_TOKEN}`){
+        res.writeHead(401, { 'Content-Type':'application/json' })
+        res.end(JSON.stringify({ error:'Unauthorized' }))
+        return
+      }
+
+      execFile('/home/pi/scripts/deploy.sh', (err, stdout, stderr)=>{
+        if(err){
+          console.error('Deploy failed:', stderr)
+
+          res.writeHead(500, { 'Content-Type':'application/json' })
+          res.end(JSON.stringify({
+            success:false,
+            error:stderr || err.message
+          }))
+          return
+        }
+
+        console.log('Deploy successful:', stdout)
+
+        res.writeHead(200, { 'Content-Type':'application/json' })
+        res.end(JSON.stringify({
+          success:true,
+          output:stdout
+        }))
+      })
+
+      return
+    }
+
+    // Existing static-file server
     const urlPath = decodeURIComponent(req.url.split('?')[0])
     let filePath
-    if(urlPath==='/' || urlPath==='/index.html'){ filePath=path.join(__dirname,'quantize/index.html') }
-    else if(urlPath.startsWith('/quantize/')){ filePath=path.join(__dirname,urlPath.substring(1)) }
-    else { res.writeHead(403); res.end('Forbidden'); return }
 
-    if(!fs.existsSync(filePath)){ res.writeHead(404); res.end('Not Found'); return }
+    if(urlPath==='/' || urlPath==='/index.html'){
+      filePath=path.join(__dirname,'quantize/index.html')
+    }
+    else if(urlPath.startsWith('/quantize/')){
+      filePath=path.join(__dirname,urlPath.substring(1))
+    }
+    else {
+      res.writeHead(403)
+      res.end('Forbidden')
+      return
+    }
+
+    if(!fs.existsSync(filePath)){
+      res.writeHead(404)
+      res.end('Not Found')
+      return
+    }
 
     res.writeHead(200,{
-      'Content-Type': mime.getType(filePath)||'application/octet-stream',
+      'Content-Type':mime.getType(filePath)||'application/octet-stream',
       'Cache-Control':'no-cache'
     })
+
     fs.createReadStream(filePath).pipe(res)
-  } catch(err){ console.error(err); if(!res.headersSent) res.writeHead(500); res.end() }
+
+  } catch(err){
+    console.error(err)
+    if(!res.headersSent) res.writeHead(500)
+    res.end()
+  }
 })
+
 
 const wss = new WebSocketServer({ noServer:true })
 const players = {} // id -> { x, y, z, rotationY }
@@ -71,5 +128,5 @@ wss.on('connection', ws=>{
   })
 })
 
-const port = process.env.PORT||5001
+const port = process.env.PORT||5000
 server.listen(port,()=>console.log(`Server running on ${port}`))
