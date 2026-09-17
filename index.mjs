@@ -22,7 +22,7 @@ const server = new Server((req,res)=>{
         return
       }
 
-      execFile('/home/pi/scripts/deploy.sh', (err, stdout, stderr)=>{
+      execFile('/home/pi/deploy.sh', (err, stdout, stderr)=>{
         if(err){
           console.error('Deploy failed:', stderr)
 
