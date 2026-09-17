@@ -3,7 +3,7 @@ import path from 'node:path'
 import fs from 'node:fs'
 import mime from 'mime'
 import { fileURLToPath } from 'node:url'
-import { execFile ] from 'node:child_process'
+import { execFile } from 'node:child_process'
 import WebSocket, { WebSocketServer } from 'ws'
 
 const __filename = fileURLToPath(import.meta.url)
