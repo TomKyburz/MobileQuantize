@@ -5,16 +5,26 @@ body {
     margin: 0;
     padding-bottom: 50px;
     background: linear-gradient(90deg, #000040, #006fff, #000040);
+    overflow: hidden;
+}
+
+.maplibregl-control-container {
+    display: none !important;
+}
+
+#mapimg {
+  width: 100%;
+  height: 100%;
 }
 
 .world {
   display:flex;
-  /* width: 75%; */
-  height: 150px;
+  width: 90%;
+  height: 80vh;
   aspect-ratio: 16/9;
-  background-color: red;
+  background-color: #0000af60;
   margin: 0 auto;
-  margin-top: 120px;
+  margin-top: 70px;
   border-radius: 25px;
 }
 
@@ -88,7 +98,7 @@ img {
     -webkit-box-align: center;
     -ms-flex-align: center;
     align-items: center;
-    height: 100px;
+    height: 70px;
     box-shadow: 0px 3px 3px -2px rgba(0, 0, 0, 0.2), 0px 3px 4px 0px rgba(0, 0, 0, 0.14), 0px 1px 8px 0px rgba(0, 0, 0, 0.12);
     border: 3px solid white;
     border-top: none;

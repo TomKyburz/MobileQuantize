@@ -26,7 +26,7 @@ window.addEventListener('resize', () => {
 });
 
 screen.addEventListener('click', () => {
-  window.location.href = "quantize/phasegame2/index.html";
+  window.location.href = "map/index.html";
 });
 
 
