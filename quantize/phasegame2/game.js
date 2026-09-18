@@ -49,6 +49,8 @@ const full = document.getElementById("lines");
 const grid = document.getElementById("grid");
 const menu = document.getElementById("pmenu");
 const resume = document.getElementById("resume");
+const fscreen = document.getElementById("options");
+const characteroptions = document.getElementById("character");
 menu.addEventListener('click', e => e.stopPropagation());
 
 let screenW = screen.clientWidth;
@@ -139,6 +141,11 @@ screen.addEventListener('click', () => {
 resume.addEventListener('click', () => {
   screen.requestPointerLock();
   hidePauseMenu();
+});
+
+fscreen.addEventListener('click', () => {
+  screen.requestPointerLock();
+  screen.requestFullscreen();
 });
 
 full.addEventListener('click', () => {

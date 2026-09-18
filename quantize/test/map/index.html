@@ -10,9 +10,14 @@
         { "imports": { "three": "https://unpkg.com/three@latest/build/three.module.js" } }
     </script>
 
-    <script type="module" src="../js/3dpreview2.js"></script>
+    <script type="module" src="../js/map.js"></script>
 
-    <div class="header">
+    <div class="header" onclick="full()">
+      <script>
+      function full() {
+        document.getElementById("map").requestFullscreen();
+      }
+      </script>
 
         <h1>MAP</h1>
         </div>
@@ -20,7 +25,5 @@
         <div class="world" id="map">
           <!-- <img id="map" src="../img/flashmap.jpg"> -->
         </div>
-
-<script src="js/loadapps.js"></script>
 </body>
 </html>
