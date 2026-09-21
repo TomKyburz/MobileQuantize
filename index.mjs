@@ -15,32 +15,41 @@ const server = new Server((req,res)=>{
   try {
 
     // Deploy endpoint
-if(req.method === 'POST' && req.url === '/api/deploy'){
+if (req.method === 'POST' && req.url === '/api/deploy') {
 
-  execFile('/home/pi/deploy.sh', (err, stdout, stderr)=>{
+  execFile('/home/pi/deploy.sh', (err, stdout, stderr) => {
 
-        if(err){
-          console.error('Deploy failed:', stderr)
+    if (err) {
+      console.error('Deploy failed:', stderr)
 
-          res.writeHead(500, { 'Content-Type':'application/json' })
-          res.end(JSON.stringify({
-            success:false,
-            error:stderr || err.message
-          }))
-          return
-        }
+      res.writeHead(500, { 'Content-Type': 'application/json' })
+      res.end(JSON.stringify({
+        success: false,
+        error: stderr || err.message
+      }))
+res.writeHead(200, { 'Content-Type': 'application/json' })
+    res.end(JSON.stringify({
+      success: true,
+      output: stdout
+    }), () => {
 
-        console.log('Deploy successful:', stdout)
+      // Give the HTTP response time to reach the client
+      // before restarting this Node process.
+      setTimeout(() => {
+        execFile('sudo', ['systemctl', 'restart', 'bootweb.service'], (restartErr) => {
+          if (restartErr) {
+            console.error('Restart failed:', restartErr)
+          } else {
+            console.log('Server restart initiated')
+          }
+        })
+      }, 500)
+    })
+  })
 
-        res.writeHead(200, { 'Content-Type':'application/json' })
-        res.end(JSON.stringify({
-          success:true,
-          output:stdout
-        }))
-      })
+  return
+}
 
-      return
-    }
 
     // Existing static-file server
     const urlPath = decodeURIComponent(req.url.split('?')[0])
