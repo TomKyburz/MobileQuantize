@@ -15,40 +15,42 @@ const server = new Server((req,res)=>{
   try {
 
     // Deploy endpoint
-if (req.method === 'POST' && req.url === '/api/deploy') {
+    if (req.method === 'POST' && req.url === '/api/deploy') {
+      execFile('/home/pi/deploy.sh', (err, stdout, stderr) => {
+        if (err) {
+          console.error('Deploy failed:', stderr)
 
-  execFile('/home/pi/deploy.sh', (err, stdout, stderr) => {
+          res.writeHead(500, { 'Content-Type': 'application/json' })
+          return res.end(JSON.stringify({
+            success: false,
+            error: stderr || err.message
+          }))
+        }
 
-    if (err) {
-      console.error('Deploy failed:', stderr)
-
-      res.writeHead(500, { 'Content-Type': 'application/json' })
-      res.end(JSON.stringify({
-        success: false,
-        error: stderr || err.message
-      }))
-res.writeHead(200, { 'Content-Type': 'application/json' })
-    res.end(JSON.stringify({
-      success: true,
-      output: stdout
-    }), () => {
-
-      // Give the HTTP response time to reach the client
-      // before restarting this Node process.
-      setTimeout(() => {
-        execFile('sudo', ['systemctl', 'restart', 'bootweb.service'], (restartErr) => {
-          if (restartErr) {
-            console.error('Restart failed:', restartErr)
-          } else {
-            console.log('Server restart initiated')
-          }
+        res.writeHead(200, { 'Content-Type': 'application/json' })
+        res.end(JSON.stringify({
+          success: true,
+          output: stdout
+        }), () => {
+          setTimeout(() => {
+            execFile(
+              'sudo',
+              ['systemctl', 'restart', 'bootweb.service'],
+              restartErr => {
+                if (restartErr) {
+                  console.error('Restart failed:', restartErr)
+                } else {
+                  console.log('Server restart initiated')
+                }
+              }
+            )
+          }, 500)
         })
-      }, 500)
-    })
-  })
+      })
 
-  return
-}
+      return
+    }
+
 
 
     // Existing static-file server

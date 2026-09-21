@@ -56,7 +56,7 @@ function loadGeoJSONData() {
     if (!map.getSource('park-data-source')) {
         map.addSource('park-data-source', {
             'type': 'geojson',
-            'data': '../json/park-data.geojson'
+            'data': '../json/cybermap.geojson'
         });
 
         map.addLayer({
