@@ -101,25 +101,14 @@ h1 {
 
 .testgrid {
   display: grid;
-  position: fixed;
-  grid-template-columns: min-content;
-
-  /* FIX FOR SAFARI: Remove repeat(auto-fill) on rows and use auto-rows instead */
-  grid-auto-rows: 90px;
-
-  justify-items: center;
+  grid-template-columns: repeat(auto-fill, minmax(80px, 1fr));
+  grid-gap: 15px;
+  /* margin-left: 50%; */
+  /* padding: 25px; */
   justify-content: start;
-  grid-gap: 25px;
-  width: 125px;
-
-  overflow-y: scroll;
-  -ms-overflow-style: none;
-  scrollbar-width: none;
-
-  margin: 2vh 0;
-  height: 95vh;
-  top: 0;
-  left: 75%;
+  /* margin-top: 120px; */
+  overflow: scroll;
+  justify-items: center;
 }
 
 .testgrid::-webkit-scrollbar {
@@ -197,6 +186,46 @@ img {
   font-size: 65px;
   line-height: 65px;
   height: 65px;
+}
+
+@media (max-width: 1024px) and (orientation: landscape) {
+  .testgrid {
+    display: grid;
+    position: fixed;
+    grid-template-columns: min-content;
+
+    /* FIX FOR SAFARI: Remove repeat(auto-fill) on rows and use auto-rows instead */
+    grid-auto-rows: 90px;
+
+    justify-items: center;
+    justify-content: start;
+    grid-gap: 25px;
+    width: 125px;
+
+    overflow-y: scroll;
+    -ms-overflow-style: none;
+    scrollbar-width: none;
+
+    margin: 2vh 0;
+    height: 95vh;
+    top: 0;
+    left: 75%;
+  }
+}
+
+@media (max-width: 380px) and (orientation: portrait) {
+  .testgrid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(80px, 1fr));
+    grid-gap: 15px;
+    /* margin-left: 50%; */
+    /* padding: 25px; */
+    justify-content: start;
+    margin: 0 25px;
+    margin-top: 25px;
+    overflow: scroll;
+    justify-items: center;
+  }
 }
 
 @media (max-width: 425px) {
