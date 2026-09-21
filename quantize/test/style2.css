@@ -103,12 +103,19 @@ h1 {
   display: grid;
   position: fixed;
   grid-template-columns: min-content;
-  grid-template-rows: repeat(auto-fill, minmax(90px, 90px));
+
+  /* FIX FOR SAFARI: Remove repeat(auto-fill) on rows and use auto-rows instead */
+  grid-auto-rows: 90px;
+
   justify-items: center;
   justify-content: start;
   grid-gap: 25px;
-  max-width: 125px;
+  width: 125px;
+
   overflow-y: scroll;
+  -ms-overflow-style: none;
+  scrollbar-width: none;
+
   margin: 2vh 0;
   height: 95vh;
   top: 0;
