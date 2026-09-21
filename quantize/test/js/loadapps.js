@@ -3,7 +3,7 @@
 fetch("json/games.json")
 .then(res => res.json())
 .then(data => {
-  const gamegrid = document.getElementById("gamegrid");
+  const gamegrid = document.getElementById("testgrid");
 
   data.games.sort((a, b) =>
     a.name.localeCompare(b.name)
