@@ -12,6 +12,18 @@ body {
     margin: 0;
     overflow: hidden;}
 
+@media (max-width: 1024px) {
+    #game-container {
+        display: flex;
+        width: 95vw;
+        margin-top: 0 !important;
+        height: 100vh !important;
+    }
+    .header {
+        display: none !important;
+    }
+}
+    
 #game-container {
     display: flex;
     flex-direction: column;
@@ -86,8 +98,7 @@ body {
     background: linear-gradient(to bottom, #d6ff31, #a3d900);
     border: 2px solid #5a9e00;
     border-radius: 20px;
-    font-family: 'Arial Black', Gadget, sans-serif;
-    font-size: 24px;
+font-size: 24px;
     color: #4CAF50;
     text-shadow: 1px 1px 0 #8BC34A, -1px -1px 0 #8BC34A, 1px -1px 0 #8BC34A, -1px 1px 0 #8BC34A, 0 2px 0 #388E3C;
     cursor: pointer;
