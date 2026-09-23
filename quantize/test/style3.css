@@ -1,9 +1,5 @@
 @import url('https://fonts.cdnfonts.com/css/tech-headlines');
 
-/* =========================================================
-   THE FLASH — 2014 FUI / STAR LABS INSPIRED THEME
-   ========================================================= */
-
 :root {
     --fui-bg: #02070d;
     --fui-bg-deep: #010308;
@@ -35,11 +31,6 @@
         0 0 20px rgba(255, 59, 48, 0.3);
 }
 
-
-/* =========================================================
-   GLOBAL
-   ========================================================= */
-
 * {
     box-sizing: border-box;
 }
@@ -57,37 +48,22 @@ body {
 
     font-family: Arial, Helvetica, sans-serif;
 
-    background:
-        radial-gradient(
-            ellipse at 50% 40%,
-            rgba(0, 72, 105, 0.32) 0%,
-            rgba(0, 25, 40, 0.28) 35%,
-            rgba(1, 5, 10, 0.96) 80%
-        ),
-        linear-gradient(
-            135deg,
-            #020b12 0%,
-            #01050a 50%,
-            #020812 100%
-        );
+    background-color: #01050a;
 
-    background-attachment: fixed;
-
-    /* subtle technical grid */
     background-image:
         linear-gradient(
-            rgba(0, 183, 255, 0.025) 1px,
+            rgba(0, 183, 255, 0.045) 1px,
             transparent 1px
         ),
         linear-gradient(
             90deg,
-            rgba(0, 183, 255, 0.025) 1px,
+            rgba(0, 183, 255, 0.045) 1px,
             transparent 1px
         ),
         radial-gradient(
             ellipse at 50% 40%,
-            rgba(0, 72, 105, 0.32) 0%,
-            rgba(0, 25, 40, 0.28) 35%,
+            rgba(0, 72, 105, 0.38) 0%,
+            rgba(0, 25, 40, 0.30) 35%,
             rgba(1, 5, 10, 0.96) 80%
         ),
         linear-gradient(
@@ -102,21 +78,14 @@ body {
         32px 32px,
         100% 100%,
         100% 100%;
+
+    background-repeat:
+        repeat,
+        repeat,
+        no-repeat,
+        no-repeat;
 }
 
-
-/* =========================================================
-   HIDDEN ELEMENTS
-   ========================================================= */
-
-.form-container {
-    display: none;
-}
-
-
-/* =========================================================
-   MAIN ITEM / GAME TILE
-   ========================================================= */
 
 #itemlinkwrapper {
     aspect-ratio: 1 / 1;
@@ -124,48 +93,31 @@ body {
 
 #item {
     aspect-ratio: 1 / 1;
-
     align-items: center;
     justify-content: center;
     display: flex;
-
     position: relative;
-
     border-radius: 4px;
-
     backdrop-filter: blur(5px);
-
     text-align: center;
     overflow: hidden;
-
-    /*
-     * Thin FUI cyan border rather than the heavy silver
-     * glass effect from the original.
-     */
     border: 1px solid rgba(0, 203, 255, 0.65);
-
     background:
         linear-gradient(
             145deg,
             rgba(15, 49, 64, 0.75),
             rgba(2, 13, 21, 0.9)
         );
-
     box-shadow:
         inset 0 0 20px rgba(0, 150, 210, 0.08),
         0 0 5px rgba(0, 183, 255, 0.35),
         0 0 18px rgba(0, 100, 150, 0.12);
-
     transition:
         filter 0.2s ease,
         border-color 0.2s ease,
         box-shadow 0.2s ease;
-
     filter: saturate(1) brightness(1);
 }
-
-
-/* Technical corner highlights */
 
 #item::before,
 #item::after {
@@ -213,11 +165,6 @@ body {
         0 0 25px rgba(0, 150, 255, 0.25);
 }
 
-
-/* =========================================================
-   GAME IMAGES
-   ========================================================= */
-
 #gameicon {
     width: 110%;
     height: 110%;
@@ -227,17 +174,6 @@ body {
     filter:
         saturate(0.85)
         contrast(1.08);
-}
-
-#item > img.locked {
-    width: 85%;
-    height: 85%;
-
-    filter:
-        grayscale(0.35)
-        brightness(0.7)
-        contrast(1.15)
-        drop-shadow(0 0 8px rgba(0, 183, 255, 0.35));
 }
 
 
@@ -276,25 +212,11 @@ body {
     border-radius: 3px;
 }
 
-.world:hover {
-    cursor: pointer;
-
-    border-color: var(--fui-cyan);
-
-    box-shadow:
-        0 0 10px rgba(0, 229, 255, 0.45),
-        inset 0 0 20px rgba(0, 183, 255, 0.12);
-}
-
-
-/* =========================================================
-   HEADINGS
-   ========================================================= */
-
 h1 {
     color: var(--fui-white);
 
     font-family: "Tech Headlines", "Arial Narrow", Arial, sans-serif;
+    font-weight: lighter;
 
     text-align: center;
 
@@ -310,19 +232,7 @@ h1 {
         0 0 18px rgba(0, 183, 255, 0.3);
 }
 
-#link {
-    margin: 0;
-    padding-top: 0;
-    height: 40px;
-}
-
-
-/* =========================================================
-   GRIDS
-   ========================================================= */
-
-.testgrid,
-.gamegrid {
+.testgrid, {
     display: grid;
 
     grid-template-columns:
@@ -337,38 +247,8 @@ h1 {
     justify-items: center;
 }
 
-.testgrid::-webkit-scrollbar,
-.gamegrid::-webkit-scrollbar {
+.testgrid::-webkit-scrollbar {
     display: none;
-}
-
-
-/* =========================================================
-   TEXT
-   ========================================================= */
-
-p {
-    padding: 0 20px;
-
-    color: var(--fui-text);
-
-    font-family:
-        Arial,
-        Helvetica,
-        sans-serif;
-
-    font-size: 14px;
-
-    letter-spacing: 0.5px;
-}
-
-
-/* =========================================================
-   IMAGES
-   ========================================================= */
-
-.locked {
-    width: 150px;
 }
 
 img {
@@ -378,120 +258,30 @@ img {
     border-radius: 3px;
 }
 
-
-/* =========================================================
-   HEADER / TOP HUD
-   ========================================================= */
-
 .header {
     position: fixed;
-
-    /*backdrop-filter: blur(12px);*/
-
     max-width: 50%;
-
     margin: 0 25px;
-
     top: 0;
     left: 0;
     right: 0;
-
     display: flex;
-
     flex-direction: row;
-
     justify-content: space-between;
-
     align-items: center;
-
     height: 100px;
-
-    /*
-     * FUI panel instead of simple blue line.
-     */
     border-bottom: 1px solid var(--fui-line-bright);
     z-index: 99;
 }
 
-
-/* Small HUD line above header */
-
-.header::before {
-    content: "";
-
-    position: absolute;
-
-    left: 0;
-    right: 0;
-    top: -1px;
-
-    height: 1px;
-
-    background:
-        linear-gradient(
-            90deg,
-            transparent,
-            var(--fui-cyan),
-            transparent
-        );
-
-    opacity: 0.7;
-}
-
-
-/* =========================================================
-   ACCOUNT
-   ========================================================= */
-
-.account {
-    display: none;
-
-    margin-left: 25px;
-
-    font-size: 65px;
-    line-height: 65px;
-
-    text-align: center;
-
-    font-weight: 1000;
-
-    width: 85px;
-    height: 65px;
-
-    border-radius: 50%;
-
-    background-repeat: no-repeat;
-    background-position: center center;
-    background-size: cover;
-
-    border: 1px solid var(--fui-blue);
-
-    box-shadow:
-        0 0 8px rgba(0, 183, 255, 0.4);
-}
-
-
-/* =========================================================
-   HEADER TEXT / NAV
-   ========================================================= */
-
-.header > h1,
-.sidenav a {
-    color: var(--fui-white);
-
+.header > h1 {
     font-size: 35px;
     line-height: 35px;
     height: 35px;
-
     text-shadow:
         0 0 5px rgba(0, 183, 255, 0.75),
         0 0 15px rgba(0, 183, 255, 0.25);
 }
-
-
-/* =========================================================
-   MOBILE LANDSCAPE
-   ========================================================= */
 
 @media (max-width: 1024px) and (orientation: landscape) {
 
@@ -508,8 +298,6 @@ img {
         justify-content: start;
 
         grid-gap: 25px;
-
-        width: 125px;
 
         overflow-y: scroll;
 
@@ -528,11 +316,6 @@ img {
         display: none;
     }
 }
-
-
-/* =========================================================
-   SMALL PHONES
-   ========================================================= */
 
 @media (max-width: 380px) and (orientation: portrait) {
 
@@ -553,11 +336,6 @@ img {
         justify-items: center;
     }
 }
-
-
-/* =========================================================
-   PHONE HEADER
-   ========================================================= */
 
 @media (max-width: 425px) {
 
@@ -594,439 +372,4 @@ img {
 
         border-bottom: 1px solid var(--fui-blue);
     }
-
-    .c {
-        display: none;
-    }
-
-    .account {
-        margin-left: 0;
-    }
-
-    .sidenav {
-        margin-top: 12vh;
-        padding-top: 40px;
-    }
 }
-
-
-/* =========================================================
-   ICONS
-   ========================================================= */
-
-.chat {
-    width: 85px;
-    height: 85px;
-
-    filter:
-        drop-shadow(0 0 5px rgba(0, 183, 255, 0.5));
-}
-
-.c {
-    margin-right: 25px;
-
-    width: 85px;
-    height: 85px;
-}
-
-.pfp {
-    width: 120px;
-    height: 120px;
-
-    border-radius: 50%;
-
-    border: 1px solid var(--fui-blue);
-
-    box-shadow:
-        0 0 8px rgba(0, 183, 255, 0.35);
-}
-
-.burger {
-    width: 85px;
-    height: 85px;
-
-    filter:
-        drop-shadow(0 0 5px rgba(0, 183, 255, 0.5));
-}
-
-.x {
-    width: 25px;
-    height: 25px;
-}
-
-
-/* =========================================================
-   MODAL / CORTEX PANEL
-   ========================================================= */
-
-.model-container {
-    position: relative;
-
-    z-index: 101;
-
-    width: 30rem;
-    max-width: 30rem;
-    max-height: 100%;
-
-    overflow-y: auto;
-
-    border-radius: 3px;
-
-    /*
-     * Dark transparent Cortex-style panel.
-     */
-    background:
-        linear-gradient(
-            145deg,
-            rgba(8, 32, 43, 0.96),
-            rgba(2, 12, 19, 0.98)
-        );
-
-    border: 1px solid var(--fui-blue);
-
-    box-shadow:
-        0 0 8px rgba(0, 183, 255, 0.45),
-        0 0 30px rgba(0, 80, 120, 0.35),
-        inset 0 0 25px rgba(0, 183, 255, 0.06);
-}
-
-
-/* =========================================================
-   PAGE
-   ========================================================= */
-
-.page {
-    font-family:
-        "Tech Headlines",
-        Arial,
-        sans-serif;
-
-    color: var(--fui-white);
-
-    position: absolute;
-
-    top: 0;
-    left: 0;
-
-    width: 100%;
-    height: 100%;
-
-    pointer-events: none;
-}
-
-
-/* =========================================================
-   OVERLAY
-   ========================================================= */
-
-.overlay {
-    position: fixed;
-
-    top: 0;
-    left: 0;
-
-    width: 100%;
-    height: 100%;
-
-    background:
-        rgba(0, 5, 10, 0.62);
-
-    /* backdrop-filter: blur(7px);*/
-
-    z-index: 100;
-
-    display: none;
-
-    pointer-events: auto;
-}
-
-
-/* =========================================================
-   MODAL CONTAINER
-   ========================================================= */
-
-.contain {
-    display: flex;
-
-    align-items: center;
-    justify-content: center;
-
-    position: fixed;
-
-    width: 100%;
-    height: 100%;
-}
-
-
-/* =========================================================
-   MODAL HEADER
-   ========================================================= */
-
-.modelheader {
-    position: relative;
-
-    padding: 1.2rem 15px;
-
-    background:
-        linear-gradient(
-            90deg,
-            rgba(0, 70, 100, 0.8),
-            rgba(4, 32, 44, 0.95),
-            rgba(0, 70, 100, 0.8)
-        );
-
-    border-bottom: 1px solid var(--fui-line-bright);
-
-    color: var(--fui-white);
-
-    font-size: 18px;
-
-    font-weight: 900;
-
-    line-height: 2rem;
-
-    text-align: center;
-
-    letter-spacing: 1.5px;
-
-    text-transform: uppercase;
-
-    text-shadow:
-        0 0 6px rgba(0, 183, 255, 0.7);
-}
-
-
-/* =========================================================
-   PROFILE
-   ========================================================= */
-
-.profileview {
-    height: 400px;
-
-    padding: 0 15px 3px;
-}
-
-.profileimageframe {
-    position: relative;
-
-    width: 100%;
-    height: 80px;
-
-    margin-top: 3rem;
-    margin-bottom: 6px;
-
-    text-align: center;
-}
-
-.profileimage {
-    width: 100%;
-    height: 80px;
-}
-
-.pfp {
-    width: 80px;
-    height: 100%;
-
-    border-style: solid;
-
-    border-color: var(--fui-blue);
-
-    border-radius: 50%;
-
-    box-shadow:
-        0 0 8px rgba(0, 183, 255, 0.45);
-}
-
-.profilename {
-    margin-top: 1rem;
-    margin-bottom: 1rem;
-
-    color: var(--fui-white);
-
-    font-size: 21px;
-
-    font-weight: 500;
-
-    line-height: 2rem;
-
-    text-align: center;
-
-    word-break: break-all;
-
-    text-shadow:
-        0 0 5px rgba(0, 183, 255, 0.5);
-}
-
-.profiledetails {
-    margin-bottom: 2.5rem;
-}
-
-.profiledetail {
-    color: var(--fui-text);
-
-    font-weight: 400;
-
-    overflow: hidden;
-
-    font-size: 17px;
-
-    line-height: 2rem;
-
-    text-align: center;
-
-    text-overflow: ellipsis;
-
-    white-space: nowrap;
-}
-
-
-/* =========================================================
-   BUTTONS
-   ========================================================= */
-
-.proceedbuttons {
-    border-radius: 3px;
-}
-
-button {
-    font-family:
-        "Tech Headlines",
-        Arial,
-        sans-serif;
-
-    color: var(--fui-white);
-
-    border-color: var(--fui-blue);
-
-    background: transparent;
-
-    text-shadow:
-        0 0 5px rgba(0, 183, 255, 0.6);
-}
-
-button:hover {
-    color: white;
-
-    border-color: var(--fui-cyan);
-
-    box-shadow:
-        0 0 8px rgba(0, 229, 255, 0.45);
-}
-
-.bdivider {
-    border-radius: 3px;
-
-    border: none;
-    border-width: 0;
-}
-
-.proceedbutton {
-    display: flex;
-
-    padding-top: .5rem;
-    padding-bottom: .5rem;
-
-    padding-left: 1.25rem;
-    padding-right: 1.25rem;
-
-    width: 100%;
-    height: 100%;
-
-    border: none;
-
-    border-bottom-style: solid;
-
-    border-bottom-color:
-        rgba(0, 183, 255, 0.35);
-
-    background:
-        linear-gradient(
-            90deg,
-            rgba(0, 50, 70, 0.72),
-            rgba(5, 27, 38, 0.9),
-            rgba(0, 50, 70, 0.72)
-        );
-
-    color: var(--fui-white);
-
-    font-size: 20px;
-
-    letter-spacing: 1px;
-
-    transition:
-        background 0.15s ease,
-        box-shadow 0.15s ease,
-        color 0.15s ease;
-}
-
-.proceedbutton:hover {
-    background:
-        linear-gradient(
-            90deg,
-            rgba(0, 110, 150, 0.45),
-            rgba(5, 40, 55, 0.95),
-            rgba(0, 110, 150, 0.45)
-        );
-
-    color: #ffffff;
-
-    box-shadow:
-        inset 0 0 12px rgba(0, 183, 255, 0.12),
-        0 0 6px rgba(0, 183, 255, 0.25);
-}
-
-
-/* =========================================================
-   OPTIONAL FUI ACCENT CLASSES
-   Add these to HTML elements if useful.
-   ========================================================= */
-
-.fui-label {
-    color: var(--fui-blue-bright);
-
-    font-family:
-        "Tech Headlines",
-        Arial,
-        sans-serif;
-
-    font-size: 11px;
-
-    letter-spacing: 2px;
-
-    text-transform: uppercase;
-
-    text-shadow:
-        0 0 5px rgba(0, 183, 255, 0.7);
-}
-
-.fui-status {
-    color: var(--fui-cyan);
-
-    text-shadow:
-        0 0 5px rgba(0, 229, 255, 0.8),
-        0 0 12px rgba(0, 229, 255, 0.35);
-}
-
-.fui-alert {
-    color: var(--fui-red-bright);
-
-    text-shadow:
-        0 0 5px rgba(255, 59, 48, 0.8),
-        0 0 15px rgba(255, 59, 48, 0.35);
-}
-
-.fui-panel {
-    background:
-        linear-gradient(
-            145deg,
-            rgba(7, 31, 42, 0.8),
-            rgba(1, 12, 19, 0.9)
-        );
-
-    border: 1px solid var(--fui-line);
-
-    box-shadow:
-        inset 0 0 15px rgba(0, 183, 255, 0.04),
-        0 0 8px rgba(0, 100, 150, 0.12);
-}
-
