@@ -31,7 +31,7 @@ if (gameFile) {
 
 document.getElementById("fullscreen").addEventListener("click", () => {
   if (!document.fullscreenElement) {
-    document.getElementById("wrapper").requestFullscreen();
+    document.getElementById("game-container").requestFullscreen();
     document.getElementById("wrapper").style.height = "100%";
     document.getElementById("game-container").style.height = "100%";
   } else {
@@ -58,6 +58,7 @@ const isMobile =
 
 if (isMobile) {
 
+
   // =========================================================
   // MOBILE INPUT
   // =========================================================
@@ -77,7 +78,18 @@ if (isMobile) {
 
   screen.appendChild(mobileUI);
 
+  function toggleMobcontrols() {
+    var x = document.getElementById("mobile-ui");
+    if (x.style.display === "none") {
+      x.style.display = "block";
+    } else {
+        x.style.display = "none";
+}
+}
 
+  document.getElementById("mobcontrols").addEventListener("click", () => {
+    toggleMobcontrols();
+  });
   // =========================================================
   // KEYBOARD EMULATION
   // =========================================================
