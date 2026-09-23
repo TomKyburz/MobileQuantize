@@ -116,6 +116,7 @@ if (isMobile) {
       ArrowUp: 32,
       ArrowRight: 39,
       ArrowDown: 40,
+      ' ': 32,
 
       a: 65,
       s: 83,
@@ -219,6 +220,7 @@ if (isMobile) {
   let leftHeld = false;
   let rightHeld = false;
   let downHeld = false;
+  let upHeld = false;
 
 
   function setJoystickKey(
@@ -298,6 +300,15 @@ if (isMobile) {
     const wantDown =
       ny > 0.55;
 
+    const wantUp =
+      ny < -0.55;
+
+    upHeld = setJoystickKey(
+      upHeld,
+      wantUp,
+      ' ',
+      'Space'
+    );
 
     leftHeld = setJoystickKey(
       leftHeld,
@@ -344,10 +355,17 @@ if (isMobile) {
         'ArrowDown'
       );
     }
+    if (upHeld) {
+      releaseKey(
+        ' ',
+        'Space'
+      );
+    }
 
     leftHeld = false;
     rightHeld = false;
     downHeld = false;
+    upHeld = false;
 
     joystickKnob.style.transform =
       'translate(0px, 0px)';
