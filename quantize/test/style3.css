@@ -285,38 +285,40 @@ img {
 }
 
 @media (max-width: 1024px) and (orientation: landscape) {
-
     .testgrid {
-        display: grid;
-
         position: fixed;
 
+        top: 0;
+        right: 0;
+        left: auto;
+        height: 100dvh;
+        display: grid;
         grid-template-columns: min-content;
-
         grid-auto-rows: 90px;
 
         justify-items: center;
-        justify-content: start;
+        justify-content: center;
 
-        grid-gap: 25px;
+        gap: 25px;
 
-        overflow-y: scroll;
+        overflow-y: auto;
+        overflow-x: hidden;
+
+        margin: 0;
+        margin-right: 5vw;
+
+        padding: 20px 10px;
 
         -ms-overflow-style: none;
         scrollbar-width: none;
-
-        margin: 2vh 0;
-
-        height: 95vh;
-
-        top: 0;
-        left: 75%;
     }
 
     .testgrid::-webkit-scrollbar {
         display: none;
     }
 }
+
+
 
 @media (max-width: 380px) and (orientation: portrait) {
 
