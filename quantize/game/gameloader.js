@@ -113,7 +113,7 @@ if (isMobile) {
 
     const keyCodes = {
       ArrowLeft: 37,
-      ArrowUp: 38,
+      ArrowUp: 32,
       ArrowRight: 39,
       ArrowDown: 40,
 
