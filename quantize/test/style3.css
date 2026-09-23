@@ -285,16 +285,21 @@ img {
 }
 
 @media (max-width: 1024px) and (orientation: landscape) {
+
     .testgrid {
         position: fixed;
 
         top: 0;
         right: 0;
         left: auto;
+
+        width: 180px;
         height: 100dvh;
+
         display: grid;
-        grid-template-columns: min-content;
-        grid-auto-rows: 90px;
+
+        grid-template-columns: 150px;
+        grid-auto-rows: 150px;
 
         justify-items: center;
         justify-content: center;
@@ -305,9 +310,11 @@ img {
         overflow-x: hidden;
 
         margin: 0;
-        margin-right: 5vw;
-
-        padding: 20px 10px;
+        margin-right: 7vw;
+        padding-top: 20px;
+        padding-bottom: 20px;
+        padding-left: 15px;
+        padding-right: 15px;
 
         -ms-overflow-style: none;
         scrollbar-width: none;
@@ -316,7 +323,20 @@ img {
     .testgrid::-webkit-scrollbar {
         display: none;
     }
+
+    #itemlinkwrapper {
+        width: 150px;
+        height: 150px;
+        aspect-ratio: auto;
+    }
+
+    #item {
+        width: 150px;
+        height: 150px;
+        aspect-ratio: auto;
+    }
 }
+
 
 
 
