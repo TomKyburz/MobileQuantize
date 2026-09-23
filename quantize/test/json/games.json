@@ -1,6 +1,20 @@
 {
   "games": [
     {
+      "name": "pandas3",
+      "fullname": "3 Pandas",
+      "logo": "quantize/gameicons/3pandas.png",
+      "banner": "https://example.com/images/game6_banner.jpg",
+      "gametype": "platformer"
+    },
+    {
+      "name": "swordsandsouls",
+      "fullname": "Swords and Souls",
+      "logo": "quantize/gameicons/swordsandsouls.png",
+      "banner": "https://example.com/images/watersons_banner.jpg",
+      "gametype": "adventure"
+    },
+    {
       "name": "roguesoul2",
       "fullname": "Rogue Soul 2",
       "logo": "img/roguesoul2.jpg",
@@ -57,7 +71,7 @@
       "gametype": "strategy"
     },
     {
-      "name": "snailbob",
+      "name": "snailbob2",
       "fullname": "Snail Bob",
       "logo": "img/snailbob.png",
       "banner": "https://example.com/images/snailbob_banner.jpg",
