@@ -51,225 +51,594 @@ document.addEventListener("fullscreenchange", () => {
     // and no action is needed here unless you want to re-enforce the 100%
 });
 
-const isMobile = 'ontouchstart' in window;
-
-const mobileInput = {
-  x: 0,
-  z: 0,
-  jump: false
-};
+const isMobile =
+  'ontouchstart' in window ||
+  navigator.maxTouchPoints > 0;
 
 if (isMobile) {
+
+  // =========================================================
+  // MOBILE INPUT
+  // =========================================================
+
   const mobileUI = document.createElement('div');
 
   mobileUI.id = 'mobile-ui';
+
   mobileUI.style.cssText = `
     position: absolute;
     inset: 0;
+    z-index: 1000;
     pointer-events: none;
-    z-index: 100;
+    user-select: none;
+    -webkit-user-select: none;
   `;
 
   screen.appendChild(mobileUI);
 
-  // -------------------------
-  // Joystick
-  // -------------------------
 
-  const joyBase = document.createElement('div');
+  // =========================================================
+  // KEYBOARD EMULATION
+  // =========================================================
 
-  joyBase.style.cssText = `
-    position: absolute;
-    bottom: 40px;
-    left: 40px;
-    width: 110px;
-    height: 110px;
-    border-radius: 50%;
-    background: rgba(255,255,255,0.15);
-    border: 2px solid rgba(255,255,255,0.35);
-    pointer-events: auto;
-    touch-action: none;
-  `;
+  function keyEvent(type, key, code) {
 
-  mobileUI.appendChild(joyBase);
+    const keyCodes = {
+      ArrowLeft: 37,
+      ArrowUp: 38,
+      ArrowRight: 39,
+      ArrowDown: 40,
 
-  const joyKnob = document.createElement('div');
+      a: 65,
+      s: 83,
+      d: 68,
 
-  joyKnob.style.cssText = `
-    position: absolute;
-    top: 50%;
-    left: 50%;
-    width: 44px;
-    height: 44px;
-    border-radius: 50%;
-    background: rgba(255,255,255,0.55);
-    transform: translate(-50%, -50%);
-    pointer-events: none;
-  `;
+      q: 81,
+      w: 87,
+      e: 69
+    };
 
-  joyBase.appendChild(joyKnob);
-
-  // -------------------------
-  // Jump button
-  // -------------------------
-
-  const jumpBtn = document.createElement('div');
-
-  jumpBtn.textContent = 'UP';
-
-  jumpBtn.style.cssText = `
-    position: absolute;
-    bottom: 40px;
-    right: 40px;
-    width: 70px;
-    height: 70px;
-    border-radius: 50%;
-    background: rgba(255,255,255,0.2);
-    border: 2px solid rgba(255,255,255,0.45);
-    pointer-events: auto;
-    touch-action: none;
-
-    display: flex;
-    align-items: center;
-    justify-content: center;
-
-    color: white;
-    font-size: 28px;
-    font-family: sans-serif;
-    user-select: none;
-  `;
-
-  mobileUI.appendChild(jumpBtn);
-
-  // -------------------------
-  // Jump
-  // -------------------------
-
-  function jump() {
-    const event = new KeyboardEvent("keydown", {
-      key: "q",
-      code: "KeyQ",
-      keyCode: 81,
-      which: 81,
+    const event = new KeyboardEvent(type, {
+      key: key,
+      code: code,
+      keyCode: keyCodes[key] || 0,
+      which: keyCodes[key] || 0,
       bubbles: true,
       cancelable: true
     });
 
+    /*
+     * Send it to the Ruffle player as well as the document.
+     * This gives Ruffle the best chance of receiving the input.
+     */
+    player.dispatchEvent(event);
     document.dispatchEvent(event);
-    console.log("event dispatched")
   }
 
-  jumpBtn.addEventListener('touchstart', (e) => {
-    e.preventDefault();
-    jump();
-  }, { passive: false });
+
+  function pressKey(key, code) {
+    keyEvent('keydown', key, code);
+  }
 
 
-  // -------------------------
-  // Joystick movement
-  // -------------------------
+  function releaseKey(key, code) {
+    keyEvent('keyup', key, code);
+  }
 
-  let joyTouchId = null;
 
-  const JOY_RADIUS = 55;
+  // =========================================================
+  // JOYSTICK
+  //
+  // LEFT  = ArrowLeft
+  // RIGHT = ArrowRight
+  // DOWN  = ArrowDown
+  // =========================================================
 
-  let joyOrigin = {
+  const joystick = document.createElement('div');
+
+  joystick.style.cssText = `
+    position: absolute;
+    left: 35px;
+    bottom: 35px;
+
+    width: 125px;
+    height: 125px;
+
+    border-radius: 50%;
+
+    background: rgba(255,255,255,0.12);
+    border: 2px solid rgba(255,255,255,0.35);
+
+    pointer-events: auto;
+    touch-action: none;
+  `;
+
+  mobileUI.appendChild(joystick);
+
+
+  const joystickKnob = document.createElement('div');
+
+  joystickKnob.style.cssText = `
+    position: absolute;
+
+    left: 50%;
+    top: 50%;
+
+    width: 50px;
+    height: 50px;
+
+    margin-left: -25px;
+    margin-top: -25px;
+
+    border-radius: 50%;
+
+    background: rgba(255,255,255,0.55);
+
+    pointer-events: none;
+  `;
+
+  joystick.appendChild(joystickKnob);
+
+
+  const JOY_RADIUS = 60;
+
+  let joystickTouch = null;
+
+  let joystickCenter = {
     x: 0,
     y: 0
   };
 
-  joyBase.addEventListener('touchstart', (e) => {
-    e.preventDefault();
-
-    const touch = e.changedTouches[0];
-
-    joyTouchId = touch.identifier;
-
-    const rect = joyBase.getBoundingClientRect();
-
-    joyOrigin = {
-      x: rect.left + rect.width / 2,
-      y: rect.top + rect.height / 2
-    };
-  }, { passive: false });
+  let leftHeld = false;
+  let rightHeld = false;
+  let downHeld = false;
 
 
-  document.addEventListener('touchmove', (e) => {
+  function setJoystickKey(
+    current,
+    desired,
+    key,
+    code
+  ) {
 
-    for (const touch of e.changedTouches) {
-
-      if (touch.identifier !== joyTouchId) {
-        continue;
-      }
-
-      e.preventDefault();
-
-      const dx = touch.clientX - joyOrigin.x;
-      const dy = touch.clientY - joyOrigin.y;
-
-      const distance = Math.min(
-        Math.sqrt(dx * dx + dy * dy),
-        JOY_RADIUS
-      );
-
-      const angle = Math.atan2(dy, dx);
-
-      const x =
-        (distance / JOY_RADIUS) *
-        Math.cos(angle);
-
-      const z =
-        (distance / JOY_RADIUS) *
-        Math.sin(angle);
-
-      mobileInput.x = x;
-      mobileInput.z = z;
-
-      joyKnob.style.transform = `
-        translate(
-          calc(-50% + ${x * JOY_RADIUS}px),
-          calc(-50% + ${z * JOY_RADIUS}px)
-        )
-      `;
+    if (current === desired) {
+      return desired;
     }
 
-  }, { passive: false });
+    if (desired) {
+      pressKey(key, code);
+    } else {
+      releaseKey(key, code);
+    }
 
-
-  function resetJoystick() {
-    joyTouchId = null;
-
-    mobileInput.x = 0;
-    mobileInput.z = 0;
-
-    joyKnob.style.transform =
-      'translate(-50%, -50%)';
+    return desired;
   }
 
 
-  document.addEventListener('touchend', (e) => {
+  function updateJoystick(touch) {
 
-    for (const touch of e.changedTouches) {
+    const dx =
+      touch.clientX - joystickCenter.x;
 
-      if (touch.identifier === joyTouchId) {
-        resetJoystick();
+    const dy =
+      touch.clientY - joystickCenter.y;
+
+    const distance =
+      Math.sqrt(dx * dx + dy * dy);
+
+    const clampedDistance =
+      Math.min(distance, JOY_RADIUS);
+
+    const angle =
+      Math.atan2(dy, dx);
+
+    const x =
+      Math.cos(angle) * clampedDistance;
+
+    const y =
+      Math.sin(angle) * clampedDistance;
+
+
+    // Move knob visually
+
+    joystickKnob.style.transform =
+      `translate(${x}px, ${y}px)`;
+
+
+    // Normalized joystick values
+
+    const nx = x / JOY_RADIUS;
+    const ny = y / JOY_RADIUS;
+
+
+    // -------------------------------------------------------
+    // Horizontal movement
+    // -------------------------------------------------------
+
+    const deadzone = 0.25;
+
+    const wantLeft =
+      nx < -deadzone;
+
+    const wantRight =
+      nx > deadzone;
+
+
+    // -------------------------------------------------------
+    // Down / dodge
+    // -------------------------------------------------------
+
+    const wantDown =
+      ny > 0.55;
+
+
+    leftHeld = setJoystickKey(
+      leftHeld,
+      wantLeft,
+      'ArrowLeft',
+      'ArrowLeft'
+    );
+
+    rightHeld = setJoystickKey(
+      rightHeld,
+      wantRight,
+      'ArrowRight',
+      'ArrowRight'
+    );
+
+    downHeld = setJoystickKey(
+      downHeld,
+      wantDown,
+      'ArrowDown',
+      'ArrowDown'
+    );
+  }
+
+
+  function resetJoystick() {
+
+    if (leftHeld) {
+      releaseKey(
+        'ArrowLeft',
+        'ArrowLeft'
+      );
+    }
+
+    if (rightHeld) {
+      releaseKey(
+        'ArrowRight',
+        'ArrowRight'
+      );
+    }
+
+    if (downHeld) {
+      releaseKey(
+        'ArrowDown',
+        'ArrowDown'
+      );
+    }
+
+    leftHeld = false;
+    rightHeld = false;
+    downHeld = false;
+
+    joystickKnob.style.transform =
+      'translate(0px, 0px)';
+
+    joystickTouch = null;
+  }
+
+
+  joystick.addEventListener(
+    'touchstart',
+    (e) => {
+
+      e.preventDefault();
+
+      if (joystickTouch !== null) {
+        return;
+      }
+
+      const touch =
+        e.changedTouches[0];
+
+      joystickTouch =
+        touch.identifier;
+
+      const rect =
+        joystick.getBoundingClientRect();
+
+      joystickCenter = {
+        x: rect.left + rect.width / 2,
+        y: rect.top + rect.height / 2
+      };
+
+      updateJoystick(touch);
+
+    },
+    { passive: false }
+  );
+
+
+  document.addEventListener(
+    'touchmove',
+    (e) => {
+
+      if (joystickTouch === null) {
+        return;
+      }
+
+      for (const touch of e.changedTouches) {
+
+        if (
+          touch.identifier ===
+          joystickTouch
+        ) {
+
+          e.preventDefault();
+
+          updateJoystick(touch);
+
+          break;
+        }
+      }
+
+    },
+    { passive: false }
+  );
+
+
+  document.addEventListener(
+    'touchend',
+    (e) => {
+
+      for (const touch of e.changedTouches) {
+
+        if (
+          touch.identifier ===
+          joystickTouch
+        ) {
+
+          resetJoystick();
+
+          break;
+        }
       }
 
     }
+  );
 
-  });
 
+  document.addEventListener(
+    'touchcancel',
+    (e) => {
 
-  document.addEventListener('touchcancel', (e) => {
+      for (const touch of e.changedTouches) {
 
-    for (const touch of e.changedTouches) {
+        if (
+          touch.identifier ===
+          joystickTouch
+        ) {
 
-      if (touch.identifier === joyTouchId) {
-        resetJoystick();
+          resetJoystick();
+
+          break;
+        }
       }
 
     }
+  );
 
-  });
+
+  // =========================================================
+  // ATTACK BUTTONS
+  // =========================================================
+
+  const attackContainer =
+    document.createElement('div');
+
+  attackContainer.style.cssText = `
+    position: absolute;
+
+    right: 30px;
+    bottom: 30px;
+
+    width: 180px;
+
+    display: grid;
+    grid-template-columns: repeat(3, 60px);
+    grid-template-rows: repeat(2, 60px);
+
+    gap: 10px;
+
+    pointer-events: auto;
+  `;
+
+  mobileUI.appendChild(attackContainer);
+
+
+  function createAttackButton(
+    label,
+    key,
+    code,
+    className = ''
+  ) {
+
+    const button =
+      document.createElement('div');
+
+    button.className =
+      `attack-button ${className}`;
+
+    button.textContent = label;
+
+    button.style.cssText = `
+      width: 60px;
+      height: 60px;
+
+      border-radius: 50%;
+
+      display: flex;
+      align-items: center;
+      justify-content: center;
+
+      box-sizing: border-box;
+
+      color: white;
+
+      font-family: Arial, sans-serif;
+      font-size: 20px;
+      font-weight: bold;
+
+      background: rgba(255,255,255,0.18);
+
+      border: 2px solid rgba(255,255,255,0.45);
+
+      text-shadow:
+        0 1px 3px rgba(0,0,0,0.8);
+
+      pointer-events: auto;
+
+      touch-action: none;
+
+      -webkit-user-select: none;
+      user-select: none;
+
+      transition:
+        transform 0.05s,
+        background 0.05s;
+    `;
+
+
+    function down(e) {
+
+      e.preventDefault();
+
+      button.style.transform =
+        'scale(0.88)';
+
+      button.style.background =
+        'rgba(255,255,255,0.40)';
+
+      pressKey(key, code);
+    }
+
+
+    function up(e) {
+
+      e.preventDefault();
+
+      button.style.transform =
+        'scale(1)';
+
+      button.style.background =
+        'rgba(255,255,255,0.18)';
+
+      releaseKey(key, code);
+    }
+
+
+    button.addEventListener(
+      'touchstart',
+      down,
+      { passive: false }
+    );
+
+    button.addEventListener(
+      'touchend',
+      up,
+      { passive: false }
+    );
+
+    button.addEventListener(
+      'touchcancel',
+      up,
+      { passive: false }
+    );
+
+
+    attackContainer.appendChild(button);
+
+    return button;
+  }
+
+
+  // =========================================================
+  // BUTTON LAYOUT
+  //
+  // Q = Slow Punch
+  // W = Slow Kick
+  // E = Slow Grab
+  //
+  // A = Punch
+  // S = Kick
+  // D = Grab
+  // =========================================================
+
+  createAttackButton(
+    'Q',
+    'q',
+    'KeyQ',
+    'slow'
+  );
+
+  createAttackButton(
+    'W',
+    'w',
+    'KeyW',
+    'slow'
+  );
+
+  createAttackButton(
+    'E',
+    'e',
+    'KeyE',
+    'slow'
+  );
+
+  createAttackButton(
+    'A',
+    'a',
+    'KeyA'
+  );
+
+  createAttackButton(
+    'S',
+    's',
+    'KeyS'
+  );
+
+  createAttackButton(
+    'D',
+    'd',
+    'KeyD'
+  );
+
+
+  // =========================================================
+  // LABELS
+  // =========================================================
+
+  const attackLabels = [
+    ['Q', 'SLOW PUNCH'],
+    ['W', 'SLOW KICK'],
+    ['E', 'SLOW GRAB'],
+    ['A', 'PUNCH'],
+    ['S', 'KICK'],
+    ['D', 'GRAB']
+  ];
+
+  const buttons =
+    attackContainer.children;
+
+  for (
+    let i = 0;
+    i < buttons.length;
+    i++
+  ) {
+
+    buttons[i].title =
+      attackLabels[i][1];
+  }
 
 }
