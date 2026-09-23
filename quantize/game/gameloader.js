@@ -78,14 +78,29 @@ if (isMobile) {
 
   screen.appendChild(mobileUI);
 
+  let mobileControlsVisible = true;
+
   function toggleMobcontrols() {
-    var x = document.getElementById("mobile-ui");
-    if (x.style.display === "none") {
-      x.style.display = "block";
+    mobileControlsVisible = !mobileControlsVisible;
+
+    if (mobileControlsVisible) {
+      mobileUI.style.visibility = "visible";
+      mobileUI.style.opacity = "1";
     } else {
-        x.style.display = "none";
-}
-}
+      // Release anything currently being held
+      resetJoystick();
+
+      // Release attack buttons
+      document.querySelectorAll('.attack-button').forEach(button => {
+        button.style.transform = 'scale(1)';
+        button.style.background = 'rgba(255,255,255,0.18)';
+      });
+
+      mobileUI.style.visibility = "hidden";
+      mobileUI.style.opacity = "0";
+    }
+  }
+
 
   document.getElementById("mobcontrols").addEventListener("click", () => {
     toggleMobcontrols();

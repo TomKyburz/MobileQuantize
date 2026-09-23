@@ -239,7 +239,7 @@ h1 {
         repeat(auto-fill, minmax(80px, 1fr));
 
     grid-gap: 15px;
-
+    margin: 25px;
     justify-content: start;
 
     overflow: scroll;

@@ -13,21 +13,34 @@ let ws;
 let playerId;
 const otherPlayers = {};
 function connectWS() {
-  ws = new WebSocket(`ws://${location.host}/ws`);
+  const protocol = location.protocol === 'https:' ? 'wss:' : 'ws:';
+  ws = new WebSocket(`${protocol}//${location.host}/ws`);
+
+  ws.onopen = () => {
+    console.log('WebSocket connected');
+  };
+
   ws.onmessage = e => {
     const msg = JSON.parse(e.data);
-    if (msg.type === 'init') playerId = msg.id;
+
+    if (msg.type === 'init') {
+      playerId = msg.id;
+    }
 
     if (msg.type === 'players') {
       msg.players.forEach(p => {
+        if (p.id === playerId) return;
+
         if (!otherPlayers[p.id]) {
           const mesh = new THREE.Mesh(
             new THREE.BoxGeometry(0.5, 1.5, 0.5),
             new THREE.MeshPhongMaterial({ color: 0x0000ff })
           );
+
           myWorld.scene.add(mesh);
           otherPlayers[p.id] = mesh;
         }
+
         otherPlayers[p.id].position.set(p.x, p.y, p.z);
         otherPlayers[p.id].rotation.y = p.rotationY;
       });
@@ -40,8 +53,17 @@ function connectWS() {
       }
     }
   };
-  ws.onclose = () => { setTimeout(connectWS, 1000); };
+
+  ws.onerror = err => {
+    console.error('WebSocket error:', err);
+  };
+
+  ws.onclose = event => {
+    console.log('WebSocket closed:', event.code, event.reason);
+    setTimeout(connectWS, 1000);
+  };
 }
+
 connectWS();
 
 const screen = document.getElementById("game-container");
