@@ -10,7 +10,7 @@ fetch("json/apps.json")
   data.apps.forEach(item => {
     const a = document.createElement("a");
     a.id = "itemlinkwrapper";
-    a.href = `/quantize/phasegame2/index.html`;
+    a.href = `/quantize/${item.name}/index.html`;
 
     const divitem = document.createElement("div");
     divitem.id = "item";

@@ -1,13 +1,13 @@
 {
   "apps": [
     {
-      "name": "bTXT",
+      "name": "music",
       "fullname": "Text Content",
       "logo": "img/txt.png",
       "gametype": "timemanagement"
     },
     {
-      "name": "a",
+      "name": "phasegame2",
       "fullname": "Text Content",
       "logo": "img/whirl.png",
       "gametype": "timemanagement"

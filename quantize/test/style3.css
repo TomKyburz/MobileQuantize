@@ -52,12 +52,12 @@ body {
 
     background-image:
         linear-gradient(
-            rgba(0, 183, 255, 0.045) 1px,
+            rgba(0, 183, 255, 0.15) 1px,
             transparent 1px
         ),
         linear-gradient(
             90deg,
-            rgba(0, 183, 255, 0.045) 1px,
+            rgba(0, 183, 255, 0.15) 1px,
             transparent 1px
         ),
         radial-gradient(
