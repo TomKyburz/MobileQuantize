@@ -1,18 +1,6 @@
 {
   "games": [
     {
-      "name": "bTXT",
-      "fullname": "Text Content",
-      "logo": "img/txt.png",
-      "gametype": "timemanagement"
-    },
-    {
-      "name": "a",
-      "fullname": "Text Content",
-      "logo": "img/whirl.png",
-      "gametype": "timemanagement"
-    },
-    {
       "name": "roguesoul2",
       "fullname": "Rogue Soul 2",
       "logo": "img/roguesoul2.jpg",

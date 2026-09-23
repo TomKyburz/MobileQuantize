@@ -1,16 +1,17 @@
-const grid = document.getElementById("testgrid");
-fetch("json/apps.json")
+const gamegrid = document.getElementById("testgrid");
+
+fetch("json/games.json")
 .then(res => res.json())
 .then(data => {
 
-  data.apps.sort((a, b) =>
+  data.games.sort((a, b) =>
     a.name.localeCompare(b.name)
   );
 
-  data.apps.forEach(item => {
+  data.games.forEach(item => {
     const a = document.createElement("a");
     a.id = "itemlinkwrapper";
-    a.href = `/quantize/phasegame2/index.html`;
+    a.href = `/quantize/game/index.html?title=${item.fullname}&file=${item.name}.swf`;
 
     const divitem = document.createElement("div");
     divitem.id = "item";
