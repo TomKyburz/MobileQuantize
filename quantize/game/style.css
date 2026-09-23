@@ -64,6 +64,7 @@ body {
     }
     .leftbox,.rightbox {
         height: 100% !important;
+        align-items: flex-start !important;
     }
     .header {
         display: none !important;

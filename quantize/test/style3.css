@@ -187,7 +187,7 @@ body {
     height: 150px;
     aspect-ratio: 16 / 9;
 
-    margin-top: 120px;
+    margin-top: 90px;
     margin-left: 25px;
 
     position: relative;
@@ -232,7 +232,7 @@ h1 {
         0 0 18px rgba(0, 183, 255, 0.3);
 }
 
-.testgrid, {
+.testgrid {
     display: grid;
 
     grid-template-columns:
@@ -269,7 +269,8 @@ img {
     flex-direction: row;
     justify-content: space-between;
     align-items: center;
-    height: 100px;
+    height: 50px;
+    margin-top: 25px;
     border-bottom: 1px solid var(--fui-line-bright);
     z-index: 99;
 }
@@ -335,10 +336,6 @@ img {
 
         justify-items: center;
     }
-}
-
-@media (max-width: 425px) {
-
     .header > h1 {
         font-size: 30px;
 
@@ -356,20 +353,13 @@ img {
     }
 
     .header {
-        height: 4vh;
-
         padding: 5px;
-
         margin: 1vh 25px;
-
-        background:
-            linear-gradient(
-                90deg,
-                rgba(2, 15, 23, 0.96),
-                rgba(3, 35, 50, 0.8),
-                rgba(2, 15, 23, 0.96)
-            );
-
+        margin-top: 3vh;
         border-bottom: 1px solid var(--fui-blue);
+        height: 45px;
+    }
+    .world {
+      margin-top: 80px;
     }
 }
