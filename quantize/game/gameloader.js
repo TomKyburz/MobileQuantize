@@ -5,6 +5,7 @@ const fileParam = params.get("file");
 const gameFile = fileParam ? `swf/${fileParam}` : null;
 const gameWidth = parseInt(params.get("width")) || 640;
 const gameHeight = parseInt(params.get("height")) || 480;
+const ruffleplayer = document.getElementById("ruffle-player")
 
 // Update header and page title
 document.getElementById("game-title").textContent = gameTitle;
@@ -111,7 +112,6 @@ if (isMobile) {
      * Send it to the Ruffle player as well as the document.
      * This gives Ruffle the best chance of receiving the input.
      */
-    player.dispatchEvent(event);
     document.dispatchEvent(event);
   }
 
