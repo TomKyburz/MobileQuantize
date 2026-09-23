@@ -3,7 +3,7 @@
   "short_name": "Quantize",
   "description": "Control interface for Quantize",
   "start_url": "/quantize/test/index.html",
-  "scope": "/quantize/test/index.html",
+  "scope": "/quantize/",
   "display": "standalone",
   "orientation": "landscape",
   "background_color": "#101010",

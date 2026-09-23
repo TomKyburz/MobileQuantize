@@ -13,17 +13,23 @@ body {
     overflow: hidden;}
 
 @media (max-width: 1024px) {
+    #wrapper {
+        height: 100vh;
+    }
     #game-container {
         display: flex;
         width: 95vw;
         margin-top: 0 !important;
-        height: 100vh !important;
+        height: 100% !important;
+    }
+    .leftbox,.rightbox {
+        height: 100% !important;
     }
     .header {
         display: none !important;
     }
 }
-    
+
 #game-container {
     display: flex;
     flex-direction: column;
