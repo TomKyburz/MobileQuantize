@@ -11,6 +11,12 @@
       "fullname": "Text Content",
       "logo": "img/whirl.png",
       "gametype": "timemanagement"
+    },
+    {
+      "name": "picontrol",
+      "fullname": "Text Content",
+      "logo": "img/whirl.png",
+      "gametype": "timemanagement"
     }
   ]
 }
