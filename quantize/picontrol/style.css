@@ -1,10 +1,93 @@
+@import url('https://fonts.cdnfonts.com/css/tech-headlines');
+
+:root {
+    --fui-bg: #02070d;
+    --fui-bg-deep: #010308;
+
+    --fui-panel: rgba(5, 18, 28, 0.78);
+    --fui-panel-light: rgba(12, 35, 48, 0.72);
+
+    --fui-blue: #00b7ff;
+    --fui-blue-bright: #56d8ff;
+    --fui-blue-dark: #006a9b;
+
+    --fui-cyan: #00e5ff;
+    --fui-red: #ff3b30;
+    --fui-red-bright: #ff624f;
+
+    --fui-white: #d9f6ff;
+    --fui-text: #a8cbd7;
+    --fui-muted: #60808c;
+
+    --fui-line: rgba(0, 183, 255, 0.38);
+    --fui-line-bright: rgba(0, 229, 255, 0.75);
+
+    --fui-glow:
+        0 0 5px rgba(0, 183, 255, 0.65),
+        0 0 18px rgba(0, 183, 255, 0.25);
+
+    --fui-red-glow:
+        0 0 6px rgba(255, 59, 48, 0.8),
+        0 0 20px rgba(255, 59, 48, 0.3);
+}
+
+* {
+    box-sizing: border-box;
+}
+
+html,
 body {
-    background-color: #101010;
-    background-image: url("../img/gdbg.png");
-    background-size: cover;
     margin: 0;
-    overflow: hidden;
-    padding-bottom: env(safe-area-inset-bottom);
+    min-height: 100%;
+}
+
+body {
+    padding-bottom: 50px;
+
+    color: var(--fui-text);
+
+    font-family: Arial, Helvetica, sans-serif;
+
+    background-color: #01050a;
+
+    background-image:
+        linear-gradient(
+            rgba(0, 183, 255, 0.15) 1px,
+            transparent 1px
+        ),
+        linear-gradient(
+            90deg,
+            rgba(0, 183, 255, 0.15) 1px,
+            transparent 1px
+        ),
+        radial-gradient(
+            ellipse at 50% 40%,
+            rgba(0, 72, 105, 0.38) 0%,
+            rgba(0, 25, 40, 0.30) 35%,
+            rgba(1, 5, 10, 0.96) 80%
+        ),
+        linear-gradient(
+            135deg,
+            #020b12 0%,
+            #01050a 50%,
+            #020812 100%
+        );
+
+    background-size:
+        32px 32px,
+        32px 32px,
+        100% 100%,
+        100% 100%;
+
+    background-repeat:
+        repeat,
+        repeat,
+        no-repeat,
+        no-repeat;
+}
+
+.swipe {
+  margin-top: 35vh;
 }
 
 .slidercontainer {
@@ -35,44 +118,6 @@ body {
   border: 2px solid black;
   background: #ffffff;
 }
-
-h1 {
-    color: white;
-    font-family: monospace;
-    text-align: center;
-    font-size: 40px;
-}
-
-.header img {
-  width: 85px;
-  height: 85px;
-}
-
-.header {
-    z-index: 12;
-    position: fixed;
-    align-items: center;
-    backdrop-filter: blur(5px);
-    width: 100%;
-    top: 0;
-    display: flex;
-    height: 100px;
-    justify-content: space-around;
-    background: rgba(255, 255, 255, 0.2);
-    border-radius: 0 0 16px 16px;
-    box-shadow: 0 4px 30px rgba(0, 0, 0, 0.1);
-}
-
-/* Center swiper section */
-section {
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    height: 100vh;
-    padding-top: 100px; /* offset for header */
-    box-sizing: border-box;
-}
-
 .swiper {
     width: 90%;
     max-width: 350px;
@@ -88,15 +133,16 @@ section {
     justify-content: center;
     align-items: center;
 }
-
 .swiper-slide img {
-    width: 100%;
-    height: 100%;
-    object-fit: cover;
-    border-radius: 25px;
+    width: 80%;
+    height: 80%;
+    margin: 10%;
+
     user-select: none;
     transition: transform 0.3s;
 }
+
+
 
 /* .swiper-slide-active img {
     transform: scale(1.05);

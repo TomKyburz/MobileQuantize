@@ -285,7 +285,14 @@ img {
 }
 
 @media (max-width: 1024px) and (orientation: landscape) {
-
+    .header {
+      width: 40vw;
+      margin-left: 5vw;
+    }
+    .world {
+      width: 40vw;
+      margin-left: 5vw;
+    }
     .testgrid {
         position: fixed;
 

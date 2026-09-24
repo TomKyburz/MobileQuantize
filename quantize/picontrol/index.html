@@ -15,17 +15,11 @@
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/swiper@9/swiper-bundle.min.css"/>
 </head>
 <body>
-    <div class="header">
-      <img id="install-button" src="../img/install.png">
-        <h1>PiControl</h1>
-    </div>
-
-    <!-- Swiper -->
-    <section>
+    <section class="swipe">
         <div class="swiper">
             <div class="swiper-wrapper">
                 <div class="swiper-slide">
-                    <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/0/07/Button_Icon_Red.svg/250px-Button_Icon_Red.svg.png" alt="Pizzeria">
+                    <img src="qr1.png" alt="Pizzeria">
                 </div>
                 <div class="swiper-slide">
                 <div class="slidercontainer ">
@@ -40,8 +34,6 @@
               <div class="swiper-button-prev"></div> -->
         </div>
     </section>
-    <script src="function.js"></script>
-    <script src="../js/install.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/swiper@9/swiper-bundle.min.js"></script>
     <script>
         var swiper = new Swiper(".swiper", {
@@ -55,32 +47,6 @@
             // },
         });
     </script>
-<script>
-if ('serviceWorker' in navigator) {
-  navigator.serviceWorker.register('../sw.js', { scope: '../' })
-    .then(reg => console.log('Service Worker registered for Quantize scope:', reg.scope))
-    .catch(err => console.error('SW registration failed:', err));
-}
-
-window.onload = () => {
-  window.subscribeToPush = async function () {
-    const reg = await navigator.serviceWorker.ready;
-
-    const subscription = await reg.pushManager.subscribe({
-      userVisibleOnly: true,
-      applicationServerKey: 'BAE6g8gLvVBZRQpNSXoleYmEMndyJbnRBDMtMxOT7_vMyNKXfUtRjg69L4TU3q_MYciNnx4GX4S4rLqYaJLL7Qg'
-    });
-
-    await fetch('/subscribe', {
-      method: 'POST',
-      body: JSON.stringify(subscription),
-      headers: { 'Content-Type': 'application/json' }
-    });
-
-    alert('Subscribed to push notifications!');
-  };
-};
-</script>
 
 </body>
 </html>
