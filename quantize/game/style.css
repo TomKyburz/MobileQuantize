@@ -57,7 +57,7 @@ body {
     }
     #game-container {
         display: flex;
-        width: 95vw;
+        /* width: 95vw; */
         margin-top: 0 !important;
         height: 100% !important;
     }
