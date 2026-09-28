@@ -56,9 +56,18 @@ const server = new Server((req, res) => {
     }
 
     const urlPath = decodeURIComponent(req.url.split('?')[0])
+
+    if (urlPath === '/') {
+      res.writeHead(302, {
+        Location: '/quantize/home/index.html'
+      })
+      res.end()
+      return
+    }
+
     let filePath
 
-    if (urlPath === '/' || urlPath === '/index.html') {
+    if (urlPath === '/index.html') {
       filePath = path.join(__dirname, 'quantize/home/index.html')
     } else if (urlPath.startsWith('/quantize/')) {
       filePath = path.join(__dirname, urlPath.substring(1))
@@ -67,6 +76,7 @@ const server = new Server((req, res) => {
       res.end('Forbidden')
       return
     }
+
 
     if (!fs.existsSync(filePath)) {
       res.writeHead(404)
