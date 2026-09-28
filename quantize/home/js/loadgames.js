@@ -1,6 +1,6 @@
 const gamegrid = document.getElementById("testgrid");
 
-fetch("json/games.json")
+fetch("/quantize/home/json/games.json")
 .then(res => res.json())
 .then(data => {
 

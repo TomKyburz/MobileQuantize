@@ -20,20 +20,16 @@
     <meta name="theme-color" content="#ffffff">
 </head>
 <body>
-  <script type="importmap">
-        {
-          "imports": {
-            "three": "https://unpkg.com/three@latest/build/three.module.js",
-            "pointerlock": "https://unpkg.com/three@latest/examples/jsm/controls/PointerLockControls.js",
-            "cannon": "https://cdn.jsdelivr.net/npm/cannon-es@0.20.0/dist/cannon-es.js"
-    }
-}
-    </script>
-    <div class="header"><h1 id="game-title"></h1></div>
-    <script type="module" src="game.js"></script>
-    <div id="game-container">
+<div id="musiccontain">
 
-    </div>
-  <!-- </div id="fullscreen"></div> -->
+<h1>Notes</h1>
+
+    <form id="noteform" action="">
+      <input type="text" id="fname" name="fname">
+      <label for="fname">note</label>
+      <input type="submit" value="Submit">
+    </form>
+
+</div>
 </body>
 </html>

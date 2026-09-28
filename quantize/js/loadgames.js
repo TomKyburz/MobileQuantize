@@ -1,6 +1,6 @@
 // document.getElementById("gamegrid").innerHTML = "<h2>Hello World</h2>";
 // console.log(document.getElementById("gamegrid"))
-fetch("quantize/games.json")
+fetch("quantize/test/json/games.json")
 .then(res => res.json())
 .then(data => {
   const gamegrid = document.getElementById("gamegrid");

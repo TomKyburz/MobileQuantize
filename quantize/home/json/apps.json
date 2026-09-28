@@ -3,19 +3,19 @@
     {
       "name": "music",
       "fullname": "Text Content",
-      "logo": "img/txt.png",
+      "logo": "/quantize/home/img/txt.png",
       "gametype": "timemanagement"
     },
     {
       "name": "phasegame2",
       "fullname": "Text Content",
-      "logo": "img/whirl.png",
+      "logo": "/quantize/home/img/whirl.png",
       "gametype": "timemanagement"
     },
     {
       "name": "picontrol",
       "fullname": "Text Content",
-      "logo": "img/whirl.png",
+      "logo": "/quantize/home/img/whirl.png",
       "gametype": "timemanagement"
     }
   ]

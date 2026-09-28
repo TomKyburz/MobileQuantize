@@ -106,7 +106,7 @@ const server = new Server((req, res) => {
     let filePath
 
     if (urlPath === '/' || urlPath === '/index.html') {
-      filePath = path.join(__dirname, 'quantize/index.html')
+      filePath = path.join(__dirname, 'quantize/home/index.html')
     } else if (urlPath.startsWith('/quantize/')) {
       filePath = path.join(__dirname, urlPath.substring(1))
     } else {

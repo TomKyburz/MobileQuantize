@@ -1,5 +1,5 @@
 const grid = document.getElementById("testgrid");
-fetch("json/apps.json")
+fetch("/quantize/home/json/apps.json")
 .then(res => res.json())
 .then(data => {
 

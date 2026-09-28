@@ -39,7 +39,6 @@ html,
 body {
     margin: 0;
     min-height: 100%;
-    overflow: hidden;
 }
 
 body {
@@ -342,6 +341,9 @@ img {
 }
 
 @media (max-width: 1024px) and (orientation: landscape) {
+    body {
+      overflow-y: hidden;
+    }
     .gamevapp {
       margin-left: 5vw;
     }
@@ -373,7 +375,7 @@ img {
 
         gap: 25px;
 
-        overflow-y: auto;
+        overflow-y: scroll !important;
         overflow-x: hidden;
 
         margin: 0;
@@ -408,7 +410,9 @@ img {
 
 
 @media (max-width: 380px) and (orientation: portrait) {
-
+    body {
+      padding-bottom: 0;
+    }
     .testgrid {
         display: grid;
 
@@ -442,6 +446,7 @@ img {
     }
 
     .header {
+        position: relative;
         padding: 5px;
         margin: 1vh 25px;
         margin-top: 3vh;
@@ -449,6 +454,6 @@ img {
         height: 45px;
     }
     .world {
-      margin-top: 80px;
+      margin-top: 0;
     }
 }

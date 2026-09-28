@@ -6,180 +6,58 @@
     box-sizing: border-box;
 }
 
-body {
-    background: linear-gradient(90deg, #000040, #006fff, #000040);
-    padding: 0;
-    margin: 0;
-    overflow: hidden;
+#noteform {
+  color: #ffff08;
 }
 
-#pmenu {
-  position: absolute;
-  top: 0;
-  left: 0;
-  background-color: #000800;
-  z-index: 1000;
-  width: 100%;
-  height: 100%;
-  /* pointer-events: none; */
-  padding: 20px;
-  display: none;
+#musiccontain {
+  display: flex;
+  width: 90vw;
+  height: calc(95vh + 2px);
+  border: 1px solid red;
+  margin: 2vh auto;
   flex-direction: column;
-  justify-content: center;
 }
 
-#buttons {
-  margin-top: 80px;
-  display: grid;
-  grid-gap: 3vh;
-}
-
-#resume, #options, #character {
-  width: 20%;
-  aspect-ratio: 16/5;
-  margin: 0 auto;
-  background-color: #000;
-  border: 2px solid red;
-}
-
-#resume {
-
-}
-
-#options {
-
-}
-
-#character {
-
-}
-
-#resume:hover, #options:hover, #character:hover {
-  background-color: #001;
-}
-
-#hud {
-    position: absolute;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
-    pointer-events: none;
-    color: white;
-    font-family: 'Courier New', Courier, monospace;
-    padding: 20px;
-    z-index: 999;
-    box-sizing: border-box;
-}
-
-#stats {
+#musiccontain > h1 {
+  color: #ffff08;
+  text-align: center;
   width: 100%;
-  height: 20px;
+  margin-bottom: 2vh;
 }
 
-#pos {
-  float: left;
-}
-
-#debug {
-  display: grid;
-  justify-content: space-between;
-  float: right;
-  /* width: 150px; */
-  /* height: 100%; */
-  z-index: 999;
-  cursor: pointer;
-  grid-auto-flow: column;
-  grid-gap: 10px;
-}
-
-#lines {
-  background: url("assets/pause.png")
-}
-
-#grid {
-  background: url("assets/3rd.png")
-}
-
-#grid, #lines {
-  pointer-events: auto;
-  width: 80px;
-  height: 80px;
-  padding: 5px;
-  /* border: 1px solid white;
-  border-radius: 50%; */
-  background-size: cover;
-}
-
-#grid:active,#lines:active {
-  border: 2px solid grey;
-}
-
-#crosshair {
-    position: absolute;
-    top: 50%;
-    left: 50%;
-    transform: translate(-50%, -50%);
-    width: 10px;
-    height: 10px;
-    border: 2px solid white;
-    /* border-radius: 50%; */
-}
-
-#game-container {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    justify-content: start;
-    position: relative;
-    margin: 0 auto;
-    height: 75vh;
-    aspect-ratio: 16/9;
-    background: #151515;
-}
-
-embed {
-    max-width: 100%;
-}
-
-.header {
-    display: flex;
-    height: 120px;
-    width: 100%;
-    background: black;
-    position: relative;
+body {
     overflow: hidden;
-    margin-bottom: 20px;
-}
-
-h1 {
-    color: lightgrey;
-    font-family: "Minecraft", sans-serif;
-    text-align: center;
-    font-size: 60px;
-    margin: 0;
-    height: 60px;
-}
-
-canvas {
-    width: 100%;
-    height: 100%;
-}
-
-@media (max-width: 1024px) {
-  .header {
-    display: none;
-  }
-
-  body {
-    background: black; /* override gradient */
-    overflow: hidden;
-  }
-
-  #game-container {
-    width: 95vw;
-    height: 100vh;
-    margin: 0 auto;
-    aspect-ratio: unset; /* IMPORTANT: remove constraint */
-  }
+    color: var(--fui-text);
+    font-family: Arial, Helvetica, sans-serif;
+    background-color: #01050a;
+    background-image: linear-gradient(
+            rgba(0, 183, 255, 0.15) 1px,
+            transparent 1px
+        ),
+        linear-gradient(
+            90deg,
+            rgba(0, 183, 255, 0.15) 1px,
+            transparent 1px
+        ),
+        radial-gradient(
+            ellipse at 50% 40%,
+            rgba(0, 72, 105, 0.38) 0%,
+            rgba(0, 25, 40, 0.30) 35%,
+            rgba(1, 5, 10, 0.96) 80%
+        ),
+        linear-gradient(
+            135deg,
+            #020b12 0%,
+            #01050a 50%,
+            #020812 100%
+        );
+    background-size: 32px 32px,
+        32px 32px,
+        100% 100%,
+        100% 100%;
+    background-repeat: repeat,
+        repeat,
+        no-repeat,
+        no-repeat;
 }
