@@ -105,6 +105,10 @@ body {
   background: url("assets/3rd.png")
 }
 
+#comeon {
+  
+}
+
 #grid, #lines, #swap {
   pointer-events: auto;
   width: 80px;
