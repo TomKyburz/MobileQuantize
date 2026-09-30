@@ -3,91 +3,91 @@
 {
 "name": "3pandas",
 "fullname": "3 Pandas",
-"logo": "/quantize/home/img/3pandas.png",
+"logo": "/quantize/img/gameicon/3pandas.png",
 "banner": "https://example.com/images/game6_banner.jpg",
 "gametype": "platformer"
 },
 {
 "name": "swordsandsouls",
 "fullname": "Swords and Souls",
-"logo": "/quantize/home/img/swordsandsouls.png",
+"logo": "/quantize/img/gameicon/swordsandsouls.png",
 "banner": "https://example.com/images/watersons_banner.jpg",
 "gametype": "adventure"
 },
 {
 "name": "bobtherobber",
 "fullname": "Souls",
-"logo": "/quantize/home/img/bobtherobber.png",
+"logo": "/quantize/img/gameicon/bobtherobber.png",
 "banner": "https://example.com/images/watersons_banner.jpg",
 "gametype": "adventure"
 },
 {
 "name": "checkpoint",
 "fullname": "Checkpoint",
-"logo": "/quantize/home/img/checkpoint.png",
+"logo": "/quantize/img/gameicon/checkpoint.png",
 "banner": "https://example.com/images/watersons_banner.jpg",
 "gametype": "adventure"
 },
 {
 "name": "roguesoul2",
 "fullname": "Rogue Soul 2",
-"logo": "/quantize/home/img/roguesoul2.jpg",
+"logo": "/quantize/img/gameicon/roguesoul2.jpg",
 "banner": "https://example.com/images/game5_banner.jpg",
 "gametype": "platformer"
 },
 {
 "name": "run3",
 "fullname": "Run 3",
-"logo": "/quantize/home/img/run3.png",
+"logo": "/quantize/img/gameicon/run3.png",
 "banner": "https://example.com/images/game6_banner.jpg",
 "gametype": "endlessrunner"
 },
 {
 "name": "papalouie3",
 "fullname": "Papa Louie 3",
-"logo": "/quantize/home/img/papalouie3.webp",
+"logo": "/quantize/img/gameicon/papalouie3.webp",
 "banner": "https://example.com/images/game6_banner.jpg",
 "gametype": "platformer"
 },
 {
 "name": "electricman2",
 "fullname": "Electric Man 2",
-"logo": "/quantize/home/img/electricman2.png",
+"logo": "/quantize/img/gameicon/electricman2.png",
 "banner": "https://example.com/images/electricman2_banner.jpg",
 "gametype": "fighting"
 },
 {
 "name": "fancypants",
 "fullname": "The Fancy Pants Adventures",
-"logo": "/quantize/home/img/fancypants.png",
+"logo": "/quantize/img/gameicon/fancypants.png",
 "banner": "https://example.com/images/fancypants_banner.jpg",
 "gametype": "platformer"
 },
 {
 "name": "fireboywatergirl",
 "fullname": "Fireboy and Watergirl",
-"logo": "/quantize/home/img/fireboywatergirl.png",
+"logo": "/quantize/img/gameicon/fireboywatergirl.png",
 "banner": "https://example.com/images/fireboywatergirl_banner.jpg",
 "gametype": "puzzle"
 },
 {
 "name": "frostbite",
 "fullname": "Frostbite",
-"logo": "/quantize/home/img/frostbite.png",
+"logo": "/quantize/img/gameicon/frostbite.png",
 "banner": "https://example.com/images/frostbite_banner.jpg",
 "gametype": "arcade"
 },
 {
 "name": "jellygo",
 "fullname": "Jelly Go",
-"logo": "/quantize/home/img/jellygo.png",
+"logo": "/quantize/img/gameicon/jellygo.png",
 "banner": "https://example.com/images/jellygo_banner.jpg",
 "gametype": "strategy"
 },
 {
 "name": "snailbob2",
 "fullname": "Snail Bob",
-"logo": "/quantize/home/img/snailbob.png",
+"logo": "/quantize/img/gameicon/snailbob.png",
 "banner": "https://example.com/images/snailbob_banner.jpg",
 "gametype": "puzzle"
 }

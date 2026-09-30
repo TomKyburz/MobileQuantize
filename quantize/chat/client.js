@@ -1,5 +1,5 @@
 async function chat() {
-  const code = prompt('Access code:')
+  // const code = prompt('Access code:')
 
   if (!code) {
     window.location.reload()

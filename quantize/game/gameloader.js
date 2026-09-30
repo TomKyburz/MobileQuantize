@@ -1,6 +1,7 @@
 const params = new URLSearchParams(window.location.search);
 
 const gameTitle = params.get("title") || "Unknown Game";
+const gameIcon =  params.get("icon")
 const fileParam = params.get("file");
 const gameFile = fileParam ? `swf/${fileParam}` : null;
 const gameWidth = parseInt(params.get("width")) || 640;
@@ -10,6 +11,7 @@ const ruffleplayer = document.getElementById("ruffle-player")
 // Update header and page title
 document.getElementById("game-title").textContent = gameTitle;
 document.getElementById("page-title").textContent = gameTitle;
+document.getElementById("page-icon").href = gameIcon;
 const screen = document.getElementById("game-container");
 
 // Apply aspect ratio dynamically

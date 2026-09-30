@@ -2,11 +2,9 @@
 <head>
     <title>test</title>
     <link rel="stylesheet" href="/quantize/home/style.css">
-    <link rel="icon" type="image/png" sizes="32x32" href="/quantize/img/key.png">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <link rel="apple-touch-icon" sizes="180x180" href="quantize/favicon/apple-touch-icon.png">
-    <link rel="icon" type="image/png" sizes="32x32" href="quantize/favicon/favicon-32x32.png">
-    <link rel="icon" type="image/png" sizes="16x16" href="quantize/favicon/favicon-16x16.png">
+    <link rel="apple-touch-icon" sizes="180x180" href="/quantize/favicon/apple-touch-icon.png">
+    <link rel="icon" type="image/png" sizes="32x32" href="/quantize/favicon/favicon.ico">
     <link rel="manifest" href="/quantize/manifest.json">
 </head>
 <body>
@@ -19,7 +17,7 @@
     }
   </script>
 
-    <script type="module" src="/quantize/home/js/3dpreview.js">
+    <script type="module" src="js/3dpreview.js">
     </script>
 
     <div class="header">
@@ -34,11 +32,10 @@
         </label>
 <div class="testgrid" id="testgrid">
 </div>
-<script src="/quantize/home/js/loadapps.js"></script>
-<script src="/quantize/home/js/loadgames.js"></script>
+<script src="js/loadapps.js"></script>
+<script src="js/loadgames.js"></script>
 <script>
     if ('serviceWorker' in navigator) {
-        // Register the Service Worker
         navigator.serviceWorker.register('/quantize/sw.js')
             .then(function(registration) {
                 console.log('Service Worker registered with scope:', registration.scope);

@@ -2,6 +2,7 @@ import * as THREE from 'three';
 import * as CANNON from 'cannon';
 
 import { World2 } from './js/world2.js';
+import { World } from './js/world.js';
 import { loader, adam, floorTexture, waterTexture, void1Texture, roofTexture, faceTex, sideTex, skyTexture } from './js/assetloader.js';
 import { jumpVelocity, maxSpeed, acceleration } from './js/variables.js';
 import { Player } from './js/player.js';
@@ -79,7 +80,7 @@ let screenW = screen.clientWidth;
 let screenH = screen.clientHeight;
 
 // --- CREATE WORLD ---
-const myWorld = new World2();
+const myWorld = new World();
 
 // --- PLAYER & VEHICLE ---
 const player = new Player(myWorld.world, myWorld.scene);
@@ -150,9 +151,11 @@ const isMobile = () => 'ontouchstart' in window;
 
 function showPauseMenu() {
   menu.style.display = 'flex';
+  document.exitPointerLock();
 }
 
 function hidePauseMenu() {
+  screen.requestPointerLock();
   menu.style.display = 'none';
 }
 

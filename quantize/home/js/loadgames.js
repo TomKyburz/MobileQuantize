@@ -11,7 +11,7 @@ fetch("/quantize/home/json/games.json")
   data.games.forEach(item => {
     const a = document.createElement("a");
     a.id = "itemlinkwrapper";
-    a.href = `/quantize/game/index.html?title=${item.fullname}&file=${item.name}.swf`;
+    a.href = `/quantize/game/index.html?title=${item.fullname}&file=${item.name}.swf&icon=${item.logo}`;
 
     const divitem = document.createElement("div");
     divitem.id = "item";

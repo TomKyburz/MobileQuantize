@@ -85,8 +85,7 @@ const server = new Server((req, res) => {
     }
 
     res.writeHead(200, {
-      'Content-Type': mime.getType(filePath) || 'application/octet-stream',
-      'Cache-Control': 'no-cache'
+      'Content-Type': mime.getType(filePath) || 'application/octet-stream'
     })
 
     fs.createReadStream(filePath).pipe(res)
