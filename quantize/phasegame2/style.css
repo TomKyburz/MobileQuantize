@@ -101,7 +101,11 @@ body {
   background: url("assets/3rd.png")
 }
 
-#grid, #lines {
+#swap {
+  background: url("assets/3rd.png")
+}
+
+#grid, #lines, #swap {
   pointer-events: auto;
   width: 80px;
   height: 80px;
@@ -111,7 +115,7 @@ body {
   background-size: cover;
 }
 
-#grid:active,#lines:active {
+#grid:active,#lines:active,#swap:active {
   border: 2px solid grey;
 }
 

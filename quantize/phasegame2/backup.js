@@ -10,12 +10,68 @@ import { Vehicle } from './js/car.js';
 
 const clock = new THREE.Clock();
 
+let ws;
+let playerId;
+const otherPlayers = {};
+function connectWS() {
+  const protocol = location.protocol === 'https:' ? 'wss:' : 'ws:';
+  ws = new WebSocket(`${protocol}//${location.host}/ws`);
+
+  ws.onopen = () => {
+    console.log('WebSocket connected');
+  };
+
+  ws.onmessage = e => {
+    const msg = JSON.parse(e.data);
+
+    if (msg.type === 'init') {
+      playerId = msg.id;
+    }
+
+    if (msg.type === 'players') {
+      msg.players.forEach(p => {
+        if (p.id === playerId) return;
+
+        if (!otherPlayers[p.id]) {
+          const mesh = new THREE.Mesh(
+            new THREE.BoxGeometry(0.5, 1.5, 0.5),
+            new THREE.MeshPhongMaterial({ color: 0x0000ff })
+          );
+
+          myWorld.scene.add(mesh);
+          otherPlayers[p.id] = mesh;
+        }
+
+        otherPlayers[p.id].position.set(p.x, p.y, p.z);
+        otherPlayers[p.id].rotation.y = p.rotationY;
+      });
+    }
+
+    if (msg.type === 'disconnect') {
+      if (otherPlayers[msg.id]) {
+        myWorld.scene.remove(otherPlayers[msg.id]);
+        delete otherPlayers[msg.id];
+      }
+    }
+  };
+
+  ws.onerror = err => {
+    console.error('WebSocket error:', err);
+  };
+
+  ws.onclose = event => {
+    console.log('WebSocket closed:', event.code, event.reason);
+    setTimeout(connectWS, 1000);
+  };
+}
+
+connectWS();
+
 const screen = document.getElementById("game-container");
 const full = document.getElementById("lines");
 const grid = document.getElementById("grid");
 const menu = document.getElementById("pmenu");
 const resume = document.getElementById("resume");
-const swap = document.getElementById("swap");
 const fscreen = document.getElementById("options");
 const characteroptions = document.getElementById("character");
 menu.addEventListener('click', e => e.stopPropagation());
@@ -23,51 +79,12 @@ menu.addEventListener('click', e => e.stopPropagation());
 let screenW = screen.clientWidth;
 let screenH = screen.clientHeight;
 
-
 // --- CREATE WORLD ---
-let myWorld = new World();
-let usingWorld2 = false;
+const myWorld = new World();
 
 // --- PLAYER & VEHICLE ---
-let player = new Player(myWorld.world, myWorld.scene);
-let car = new Vehicle(myWorld.world, myWorld.scene);
-
-// --- WORLD SWAP ---
-swap.addEventListener('click', () => {
-  const oldScene = myWorld.scene;
-
-  usingWorld2 = !usingWorld2;
-  myWorld = usingWorld2 ? new World2() : new World();
-
-  player = new Player(myWorld.world, myWorld.scene);
-  car = new Vehicle(myWorld.world, myWorld.scene);
-
-  oldScene.remove(camera);
-  myWorld.scene.add(camera);
-
-  yaw = -Math.PI / 2;
-  pitch = 0;
-  cameraMode = "first";
-  player.mesh.visible = false;
-
-  camera.rotation.order = 'YXZ';
-  camera.rotation.y = yaw;
-  camera.rotation.x = pitch;
-  camera.rotation.z = 0;
-
-  camera.position.set(
-    player.position.x,
-    player.position.y + player.eyeHeight,
-    player.position.z
-  );
-
-  if (!isMobile()) {
-    screen.requestPointerLock();
-  }
-});
-
-
-
+const player = new Player(myWorld.world, myWorld.scene);
+const car = new Vehicle(myWorld.world, myWorld.scene);
 
 // --- CAMERA & RENDERER ---
 const camera = new THREE.PerspectiveCamera(70, screenW / screenH, 0.1, 1000);
@@ -129,49 +146,139 @@ function setSelectedSlot(index) {
 setSelectedSlot(0);
 
 // --- POINTER LOCK ---
+// --- PAUSE / POINTER LOCK ---
 let isLocked = false;
-const isMobile = () => 'ontouchstart' in window;
+let isPaused = false;
+
+const isMobile = () =>
+  'ontouchstart' in window ||
+  navigator.maxTouchPoints > 0;
 
 function showPauseMenu() {
+  isPaused = true;
+
+  // Always release pointer lock when opening pause.
+  if (document.pointerLockElement) {
+    document.exitPointerLock();
+  }
+
   menu.style.display = 'flex';
-  document.exitPointerLock();
 }
 
 function hidePauseMenu() {
-  screen.requestPointerLock();
+  isPaused = false;
   menu.style.display = 'none';
+
+  // Only use pointer lock on non-mobile devices.
+  if (!isMobile()) {
+    // Wait until the menu has closed before requesting lock.
+    requestAnimationFrame(() => {
+      if (!isPaused) {
+        screen.requestPointerLock();
+      }
+    });
+  }
 }
 
-screen.addEventListener('click', () => {
-  if (!isMobile() && !isLocked) screen.requestPointerLock();
+function togglePause() {
+  if (isPaused) {
+    hidePauseMenu();
+  } else {
+    showPauseMenu();
+  }
+}
+
+// Canvas click:
+// Desktop -> acquire pointer lock.
+// Mobile -> don't do anything; touch controls handle input.
+screen.addEventListener('click', e => {
+  if (isPaused) return;
+
+  if (!isMobile() && !isLocked) {
+    screen.requestPointerLock();
+  }
 });
 
-resume.addEventListener('click', () => {
-  screen.requestPointerLock();
+// Resume button
+resume.addEventListener('click', e => {
+  e.preventDefault();
+  e.stopPropagation();
   hidePauseMenu();
 });
 
-fscreen.addEventListener('click', () => {
-  screen.requestPointerLock();
-  screen.requestFullscreen();
+// Pause button
+full.addEventListener('click', e => {
+  e.preventDefault();
+  e.stopPropagation();
+  togglePause();
 });
 
-full.addEventListener('click', () => {
-  document.exitPointerLock();
-  showPauseMenu();
+// Also support touch on iOS/PWA.
+// Using pointer events makes this work for both mouse and touch.
+full.addEventListener('pointerup', e => {
+  e.preventDefault();
+  e.stopPropagation();
+
+  // Avoid firing twice for mouse after click.
+  if (e.pointerType === 'touch') {
+    togglePause();
+  }
 });
 
-grid.addEventListener('click', () => {
+// Fullscreen button
+fscreen.addEventListener('click', async e => {
+  e.preventDefault();
+  e.stopPropagation();
+
+  try {
+    if (!document.fullscreenElement) {
+      await screen.requestFullscreen();
+    }
+  } catch (err) {
+    console.warn('Fullscreen request failed:', err);
+  }
+});
+
+// Camera mode button
+grid.addEventListener('click', e => {
+  e.preventDefault();
+  e.stopPropagation();
+
   cameraMode = cameraMode === "first" ? "third" : "first";
 });
 
+// Pointer lock state
 document.addEventListener('pointerlockchange', () => {
   isLocked = document.pointerLockElement === screen;
+
+  // If pointer lock disappears unexpectedly on desktop,
+  // automatically show the pause menu.
+  if (!isLocked && !isMobile() && !isPaused) {
+    showPauseMenu();
+  }
 });
 
+// Keyboard controls
 document.addEventListener('keydown', e => {
-  if (e.code === 'Escape') document.exitPointerLock();
+  // P toggles pause
+  if (e.code === 'KeyP') {
+    e.preventDefault();
+    togglePause();
+    return;
+  }
+
+  // Escape opens pause instead of only releasing pointer lock.
+  if (e.code === 'Escape') {
+    e.preventDefault();
+
+    if (!isPaused) {
+      showPauseMenu();
+    }
+
+    return;
+  }
 });
+
 
 // --- YAW / PITCH ---
 let yaw   = -Math.PI / 2;
@@ -363,7 +470,20 @@ let lastTime = performance.now();
 
 function animate() {
   requestAnimationFrame(animate);
+
   const delta = Math.min(clock.getDelta(), 0.1);
+
+  // Don't update the game while paused.
+  if (isPaused) {
+      renderer.clear();
+      renderer.render(myWorld.scene, camera);
+
+      renderer.clearDepth();
+      renderer.render(hudScene, hudCamera);
+
+      return;
+    }
+
   myWorld.world.step(1 / 60, delta);
 
   const forward = new THREE.Vector3(-Math.sin(yaw), 0, -Math.cos(yaw));
@@ -420,6 +540,14 @@ function animate() {
   camera.rotation.y = yaw;
   camera.rotation.x = pitch;
   camera.rotation.z = 0;
+
+  if (ws && ws.readyState === WebSocket.OPEN) {
+    ws.send(JSON.stringify({
+      type: 'update',
+      x: px, y: py, z: pz,
+      rotationY: yaw
+    }));
+  }
 
   renderer.clear();
   renderer.render(myWorld.scene, camera);
